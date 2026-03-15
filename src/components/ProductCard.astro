@@ -1,0 +1,57 @@
+---
+interface Props {
+  name: string;
+  price: number;
+  description: string;
+  scents: string[];
+  waxColor: string;
+  bgGlow: string;
+  tagColor: string;
+  tagBg: string;
+  delay?: number;
+}
+const { name, price, description, scents, waxColor, bgGlow, tagColor, tagBg, delay = 0 } = Astro.props;
+---
+<div class="glass-card rounded-2xl overflow-hidden">
+  <!-- Jar display area -->
+  <div
+    class="relative h-52 flex items-end justify-center pb-5"
+    style={`background: radial-gradient(ellipse at 50% 80%, ${bgGlow}, transparent 70%);`}
+  >
+    <!-- Price badge -->
+    <div
+      class="absolute top-3 right-3 text-sm font-extrabold px-3 py-1 rounded-full"
+      style={`background:rgba(0,0,0,0.35); backdrop-filter:blur(8px); border:1px solid rgba(196,181,253,0.25); color:#c4b5fd;`}
+    >
+      ${price}
+    </div>
+
+    <!-- Candle assembly -->
+    <div class="text-center relative">
+      <!-- Flame -->
+      <div
+        class="flame-anim text-2xl absolute left-1/2"
+        style={`top:-30px; transform-origin:bottom center; animation-delay:${delay}s;`}
+      >🔥</div>
+
+      <!-- Jar -->
+      <div class="jar relative" style={`background:rgba(255,255,255,0.06);`}>
+        <div class={`jar-wax bg-gradient-to-b ${waxColor}`}></div>
+      </div>
+      <div class="jar-lid"></div>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="p-5">
+    <h3 class="font-extrabold text-lg text-white mb-1">{name}</h3>
+    <p class="text-white/40 text-sm leading-relaxed mb-3">{description}</p>
+    <div class="flex flex-wrap gap-2">
+      {scents.map(scent => (
+        <span class={`text-[0.7rem] font-bold tracking-wide px-3 py-1 rounded-full border ${tagColor} ${tagBg}`}>
+          {scent}
+        </span>
+      ))}
+    </div>
+  </div>
+</div>

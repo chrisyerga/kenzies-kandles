@@ -1,0 +1,56 @@
+---
+---
+<section
+  id="contact"
+  class="py-24"
+  style="background: linear-gradient(180deg, #0d0125 0%, #1a0533 100%); border-top: 1px solid rgba(196,181,253,0.08);"
+>
+  <div class="max-w-2xl mx-auto px-6">
+
+    <div class="text-center mb-12">
+      <p class="text-[0.7rem] font-extrabold tracking-[0.15em] uppercase mb-2" style="color:#c4b5fd;">✦ Say Hello ✦</p>
+      <span class="font-script block leading-none" style="font-size:2.8rem; color:#e879f9; text-shadow:0 0 20px rgba(232,121,249,0.4);">Get in</span>
+      <span class="font-black tracking-widest text-white block" style="font-size:2.8rem; margin-top:-0.4rem;">TOUCH</span>
+      <p class="text-white/40 mt-3">Custom orders and questions always welcome 💌</p>
+    </div>
+
+    <!--
+      To enable form submissions, sign up at https://formspree.io and
+      replace YOUR_FORM_ID below with your actual form ID.
+    -->
+    <div
+      class="rounded-2xl p-8"
+      style="background:rgba(255,255,255,0.04); border:1px solid rgba(196,181,253,0.15); backdrop-filter:blur(10px);"
+    >
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="space-y-5">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold tracking-wide text-white/50 mb-2">Name</label>
+            <input class="form-input" type="text" name="name" placeholder="Your name" required />
+          </div>
+          <div>
+            <label class="block text-xs font-bold tracking-wide text-white/50 mb-2">Email</label>
+            <input class="form-input" type="email" name="email" placeholder="you@email.com" required />
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold tracking-wide text-white/50 mb-2">Message</label>
+          <textarea
+            class="form-input resize-none"
+            name="message"
+            rows="4"
+            placeholder="Tell me what scents you're dreaming of..."
+            required
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="glow-btn w-full text-white font-bold py-4 rounded-full text-base"
+        >
+          Send Message 💜
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>

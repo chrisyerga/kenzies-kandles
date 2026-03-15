@@ -1,0 +1,68 @@
+[
+  {
+    "id": 1,
+    "name": "Lavender Dreams",
+    "price": 12,
+    "description": "Soft lavender and vanilla — perfect for unwinding after a long day.",
+    "scents": ["Lavender", "Vanilla"],
+    "waxColor": "from-purple-200 via-purple-400 to-pink-300",
+    "bgGlow": "rgba(232,121,249,0.25)",
+    "tagColor": "text-brand-lavender",
+    "tagBg": "bg-violet-950/50 border-violet-400/30"
+  },
+  {
+    "id": 2,
+    "name": "Berry Bliss",
+    "price": 12,
+    "description": "Sweet mixed berries that fill any room with a fruity, summery glow.",
+    "scents": ["Strawberry", "Blueberry"],
+    "waxColor": "from-pink-200 via-pink-400 to-purple-300",
+    "bgGlow": "rgba(244,114,182,0.25)",
+    "tagColor": "text-brand-pink",
+    "tagBg": "bg-pink-950/50 border-pink-400/30"
+  },
+  {
+    "id": 3,
+    "name": "Cotton Candy",
+    "price": 12,
+    "description": "Sweet, fluffy, nostalgic — like being at the fair on a summer night.",
+    "scents": ["Sweet", "Sugary"],
+    "waxColor": "from-yellow-100 via-yellow-300 to-amber-300",
+    "bgGlow": "rgba(251,191,36,0.2)",
+    "tagColor": "text-brand-gold",
+    "tagBg": "bg-yellow-950/50 border-yellow-400/30"
+  },
+  {
+    "id": 4,
+    "name": "Midnight Violet",
+    "price": 14,
+    "description": "Deep violet and musk for a mysterious, cozy evening atmosphere.",
+    "scents": ["Violet", "Musk"],
+    "waxColor": "from-violet-300 via-violet-600 to-purple-800",
+    "bgGlow": "rgba(139,92,246,0.3)",
+    "tagColor": "text-brand-lavender",
+    "tagBg": "bg-violet-950/50 border-violet-400/30"
+  },
+  {
+    "id": 5,
+    "name": "Pink Peony",
+    "price": 13,
+    "description": "Fresh, floral, and feminine — like a bouquet on your nightstand.",
+    "scents": ["Peony", "Rose"],
+    "waxColor": "from-rose-200 via-rose-400 to-pink-400",
+    "bgGlow": "rgba(251,113,133,0.25)",
+    "tagColor": "text-brand-rose",
+    "tagBg": "bg-rose-950/50 border-rose-400/30"
+  },
+  {
+    "id": 6,
+    "name": "Garden Party",
+    "price": 13,
+    "description": "Fresh cucumber, mint, and a hint of florals — a breath of fresh air.",
+    "scents": ["Mint", "Fresh"],
+    "waxColor": "from-emerald-100 via-emerald-300 to-green-400",
+    "bgGlow": "rgba(110,231,183,0.2)",
+    "tagColor": "text-emerald-300",
+    "tagBg": "bg-emerald-950/50 border-emerald-400/30"
+  }
+]

@@ -1,0 +1,106 @@
+---
+import site from '../data/site.json';
+---
+<section
+  class="min-h-screen flex items-center pt-20 relative overflow-hidden"
+  style="
+    background:
+      radial-gradient(ellipse 55% 55% at 25% 35%, rgba(255,160,220,0.5) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 60% at 78% 60%, rgba(180,100,255,0.45) 0%, transparent 65%),
+      radial-gradient(ellipse 80% 80% at 50% 50%, rgba(200,100,255,0.25) 0%, transparent 70%),
+      linear-gradient(160deg, #4a0a7a 0%, #7a1fa2 30%, #c040b0 60%, #9c27b0 100%);
+  "
+>
+  <!-- Bokeh circles -->
+  <div class="bokeh" style="width:280px;height:280px;background:rgba(255,180,240,0.22);top:5%;left:4%;"></div>
+  <div class="bokeh" style="width:200px;height:200px;background:rgba(255,255,255,0.12);top:8%;left:34%;"></div>
+  <div class="bokeh" style="width:340px;height:340px;background:rgba(200,100,255,0.18);top:28%;right:3%;"></div>
+  <div class="bokeh" style="width:180px;height:180px;background:rgba(255,200,240,0.18);bottom:14%;left:18%;"></div>
+  <div class="bokeh" style="width:120px;height:120px;background:rgba(255,255,255,0.16);bottom:22%;right:28%;"></div>
+  <div class="bokeh" style="width:240px;height:240px;background:rgba(240,80,200,0.12);top:52%;left:8%;"></div>
+
+  <!-- Sparkle dots -->
+  <div class="sparkle-dot" style="width:4px;height:4px;top:11%;left:17%;--d:2.2s;--delay:0s;"></div>
+  <div class="sparkle-dot" style="width:3px;height:3px;top:24%;left:59%;--d:3s;--delay:0.4s;"></div>
+  <div class="sparkle-dot" style="width:5px;height:5px;top:39%;left:7%;--d:2.5s;--delay:0.8s;"></div>
+  <div class="sparkle-dot" style="width:3px;height:3px;top:64%;right:14%;--d:2.8s;--delay:0.2s;"></div>
+  <div class="sparkle-dot" style="width:4px;height:4px;top:19%;right:39%;--d:2s;--delay:1s;"></div>
+  <div class="sparkle-dot" style="width:3px;height:3px;bottom:19%;left:44%;--d:3.2s;--delay:0.6s;"></div>
+  <div class="sparkle-dot" style="width:6px;height:6px;top:7%;right:19%;--d:2.4s;--delay:0.3s;opacity:0.5;"></div>
+  <div class="sparkle-dot" style="width:3px;height:3px;top:50%;left:50%;--d:2.7s;--delay:1.2s;"></div>
+
+  <!-- Flower accents -->
+  <div class="absolute bottom-12 left-4 text-5xl opacity-60 pointer-events-none select-none">🌸</div>
+  <div class="absolute bottom-4  left-16 text-4xl opacity-50 pointer-events-none select-none">🌺</div>
+  <div class="absolute bottom-16 left-32 text-3xl opacity-40 pointer-events-none select-none">🌸</div>
+  <div class="absolute bottom-8  right-80 text-4xl opacity-50 pointer-events-none select-none hidden md:block">🌸</div>
+
+  <!-- Content grid -->
+  <div class="max-w-6xl mx-auto px-6 w-full grid md:grid-cols-2 items-center gap-8 relative z-10">
+
+    <!-- Text -->
+    <div class="py-12">
+      <div
+        class="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase px-5 py-2 rounded-full mb-6"
+        style="background:rgba(196,181,253,0.12);border:1px solid rgba(196,181,253,0.25);color:#c4b5fd;"
+      >
+        ✦ &nbsp; Handcrafted with Love &nbsp; ✦
+      </div>
+
+      <div
+        class="font-script leading-none block"
+        style="font-size: clamp(3.8rem, 8vw, 6rem); color:#e879f9; text-shadow:0 0 30px rgba(232,121,249,0.55), 0 2px 0 rgba(0,0,0,0.15);"
+      >Kenzie's</div>
+      <div
+        class="font-black tracking-widest text-white leading-none block"
+        style="font-size: clamp(3.8rem, 9vw, 7rem); margin-top:-0.4rem; text-shadow:0 4px 16px rgba(0,0,0,0.4), 0 0 40px rgba(255,255,255,0.08);"
+      >KANDLES</div>
+
+      <p class="mt-4 mb-8 italic text-white/75" style="font-size:1.1rem; letter-spacing:0.02em;">
+        {site.tagline}
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <a href="#products" class="glow-btn text-white font-bold px-8 py-3.5 rounded-full text-base">
+          Shop Kandles 🕯️
+        </a>
+        <a
+          href="#about"
+          class="text-brand-lavender font-bold px-7 py-3.5 rounded-full text-base transition-all hover:bg-white/5"
+          style="border:1px solid rgba(196,181,253,0.3);"
+        >
+          Meet Kenzie
+        </a>
+      </div>
+
+      <!-- Quick stats -->
+      <div class="flex gap-8 mt-10 pt-8" style="border-top:1px solid rgba(255,255,255,0.1);">
+        <div>
+          <div class="text-2xl font-black" style="color:#e879f9;">100%</div>
+          <div class="text-[0.65rem] font-bold tracking-widest uppercase text-white/40 mt-0.5">Soy Wax</div>
+        </div>
+        <div class="w-px bg-white/10"></div>
+        <div>
+          <div class="text-2xl font-black" style="color:#e879f9;">Small</div>
+          <div class="text-[0.65rem] font-bold tracking-widest uppercase text-white/40 mt-0.5">Batch</div>
+        </div>
+        <div class="w-px bg-white/10"></div>
+        <div>
+          <div class="text-2xl font-black" style="color:#e879f9;">💜</div>
+          <div class="text-[0.65rem] font-bold tracking-widest uppercase text-white/40 mt-0.5">Handmade</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mascot -->
+    <div class="flex items-end justify-center py-6">
+      <img
+        src="/images/mascot.png"
+        alt="Kenzie with her candles"
+        class="w-full max-w-lg object-contain"
+        style="filter: drop-shadow(0 0 40px rgba(244,114,182,0.4)) drop-shadow(0 20px 60px rgba(139,92,246,0.3));"
+      />
+    </div>
+
+  </div>
+</section>

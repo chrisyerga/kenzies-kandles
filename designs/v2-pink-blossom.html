@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kenzie's Kandles — Design 2: Pink Blossom</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Nunito', sans-serif; }
+    .script { font-family: 'Dancing Script', cursive; }
+
+    /* Light & bright — white base with pink/purple pops */
+    body { background: #fff; color: #1a0533; overflow-x: hidden; }
+
+    :root {
+      --pink: #d63384;
+      --purple: #7c3aed;
+      --lavender: #a855f7;
+      --blush: #fdf0f8;
+      --lilac: #f5f0ff;
+    }
+
+    .hero-bg {
+      background:
+        radial-gradient(ellipse 50% 80% at 30% 50%, rgba(216,51,132,0.08) 0%, transparent 65%),
+        radial-gradient(ellipse 60% 60% at 80% 30%, rgba(168,85,247,0.07) 0%, transparent 65%),
+        linear-gradient(160deg, #fdf0f8 0%, #f5f0ff 50%, #fdf0f8 100%);
+    }
+
+    /* Marquee */
+    .marquee-wrap { background: linear-gradient(90deg, var(--pink), var(--purple)); overflow: hidden; }
+    .marquee-track { display:flex;gap:2rem;animation:marquee 20s linear infinite;white-space:nowrap; }
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+
+    /* Nav */
+    .nav-bg { background:rgba(255,255,255,0.9);border-bottom:1px solid rgba(214,51,132,0.12);backdrop-filter:blur(16px); }
+
+    /* Logo */
+    .logo-script { font-family:'Dancing Script',cursive;font-size:2.4rem;line-height:1;color:var(--pink); }
+    .logo-bold { font-size:1.9rem;font-weight:900;letter-spacing:0.06em;color:#1a0533; }
+
+    /* Hero logo */
+    .hero-script { font-family:'Dancing Script',cursive;font-size:clamp(4rem,8vw,6.5rem);color:var(--pink);line-height:0.9; }
+    .hero-bold { font-size:clamp(4rem,9vw,7.5rem);font-weight:900;letter-spacing:0.04em;color:#1a0533;line-height:1; }
+
+    .tagline { color:rgba(26,5,51,0.6);font-style:italic;font-size:1.1rem;letter-spacing:0.02em; }
+
+    /* Buttons */
+    .btn-primary {
+      background:linear-gradient(135deg,var(--pink),var(--lavender));
+      color:white;font-weight:800;padding:1rem 2.5rem;border-radius:9999px;
+      font-size:1.05rem;box-shadow:0 8px 24px rgba(214,51,132,0.3);
+      transition:all 0.25s;display:inline-block;
+    }
+    .btn-primary:hover { transform:translateY(-3px);box-shadow:0 16px 40px rgba(214,51,132,0.4); }
+    .btn-outline {
+      border:2px solid rgba(124,58,237,0.35);color:var(--purple);font-weight:700;
+      padding:1rem 2.5rem;border-radius:9999px;font-size:1.05rem;
+      transition:all 0.25s;display:inline-block;background:transparent;
+    }
+    .btn-outline:hover { background:var(--lilac);border-color:var(--purple); }
+
+    /* Section labels */
+    .eyebrow { color:var(--pink);font-size:0.7rem;font-weight:800;letter-spacing:0.15em;text-transform:uppercase; }
+
+    /* Product cards */
+    .product-card {
+      background:#fff;border:1.5px solid rgba(214,51,132,0.12);border-radius:20px;
+      overflow:hidden;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
+    }
+    .product-card:hover { transform:translateY(-8px);border-color:rgba(214,51,132,0.3);box-shadow:0 24px 48px rgba(214,51,132,0.1); }
+
+    .price-badge {
+      position:absolute;top:12px;right:12px;
+      background:rgba(255,255,255,0.9);backdrop-filter:blur(8px);
+      color:var(--pink);font-size:0.9rem;font-weight:800;
+      padding:0.3rem 0.9rem;border-radius:20px;border:1px solid rgba(214,51,132,0.2);
+    }
+    .scent-tag { font-size:0.7rem;font-weight:700;letter-spacing:0.06em;padding:0.25rem 0.7rem;border-radius:20px; }
+
+    /* Glass jar */
+    .jar-wrap { position:relative;height:200px;display:flex;align-items:flex-end;justify-content:center;padding-bottom:16px; }
+    .jar { position:relative;width:80px;height:100px;border-radius:6px 6px 10px 10px;border:2px solid rgba(255,255,255,0.6);overflow:hidden; }
+    .jar::after { content:'';position:absolute;top:0;left:8px;right:8px;bottom:0;background:linear-gradient(90deg,transparent 30%,rgba(255,255,255,0.2) 50%,transparent 70%); }
+    .jar-lid { width:90px;height:12px;border-radius:4px;background:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.8);position:absolute;top:0;left:50%;transform:translateX(-50%); }
+    .jar-wax { position:absolute;bottom:0;left:0;right:0;border-radius:0 0 8px 8px; }
+    @keyframes flame { 0%{transform:scaleX(1) rotate(-3deg) translateX(-50%)} 100%{transform:scaleX(0.85) rotate(3deg) translateX(-50%)} }
+
+    .wax-1 { background:linear-gradient(180deg,rgba(245,195,230,0.95),rgba(220,150,210,0.95)); }
+    .wax-2 { background:linear-gradient(180deg,rgba(230,180,240,0.95),rgba(180,120,220,0.95)); }
+    .wax-3 { background:linear-gradient(180deg,rgba(255,220,200,0.95),rgba(240,180,160,0.95)); }
+    .wax-4 { background:linear-gradient(180deg,rgba(200,170,240,0.95),rgba(140,90,200,0.95)); }
+    .wax-5 { background:linear-gradient(180deg,rgba(255,190,200,0.95),rgba(240,140,160,0.95)); }
+    .wax-6 { background:linear-gradient(180deg,rgba(200,240,210,0.95),rgba(140,210,165,0.95)); }
+
+    /* Feature icons */
+    .feature-box { background:var(--blush);border:1.5px solid rgba(214,51,132,0.1);border-radius:20px;padding:1.75rem;text-align:center; }
+
+    /* About */
+    .about-bg { background:linear-gradient(135deg,#fdf0f8,#f5f0ff); }
+
+    /* Inputs */
+    input, textarea {
+      background:#f9f5ff;border:1.5px solid rgba(124,58,237,0.15);
+      color:#1a0533;border-radius:12px;padding:0.875rem 1rem;
+      font-size:0.9rem;font-family:'Nunito',sans-serif;
+      transition:border-color 0.2s;outline:none;width:100%;
+    }
+    input::placeholder, textarea::placeholder { color:rgba(26,5,51,0.3); }
+    input:focus, textarea:focus { border-color:rgba(214,51,132,0.5); }
+    label { color:rgba(26,5,51,0.6);font-size:0.85rem;font-weight:700;display:block;margin-bottom:0.5rem; }
+
+    /* Divider */
+    .divider { height:2px;background:linear-gradient(90deg,transparent,rgba(214,51,132,0.4),rgba(124,58,237,0.4),transparent); }
+
+    /* Footer */
+    .footer-bg { background:linear-gradient(135deg,var(--pink),var(--purple));color:white; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav-bg fixed top-0 inset-x-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+      <div class="leading-none">
+        <div class="logo-script">Kenzie's</div>
+        <div class="logo-bold" style="margin-top:-0.3rem;">KANDLES</div>
+      </div>
+      <div class="hidden md:flex gap-8 text-sm font-bold" style="color:rgba(26,5,51,0.5);">
+        <a href="#products" class="hover:text-pink-600 transition-colors">Shop</a>
+        <a href="#about" class="hover:text-pink-600 transition-colors">About</a>
+        <a href="#contact" class="hover:text-pink-600 transition-colors">Contact</a>
+      </div>
+      <a href="#contact" class="btn-primary text-sm py-2.5 px-6 text-base">Order Now ✨</a>
+    </div>
+  </nav>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap py-2" style="margin-top:72px;">
+    <div class="marquee-track text-xs font-bold tracking-widest uppercase text-white">
+      <span>✦ Hand-Poured with Love</span><span>✦ 100% Soy Wax</span><span>✦ All Natural</span><span>✦ Custom Orders Welcome</span><span>✦ Scented Bliss</span>
+      <span>✦ Hand-Poured with Love</span><span>✦ 100% Soy Wax</span><span>✦ All Natural</span><span>✦ Custom Orders Welcome</span><span>✦ Scented Bliss</span>
+      <span>✦ Hand-Poured with Love</span><span>✦ 100% Soy Wax</span><span>✦ All Natural</span><span>✦ Custom Orders Welcome</span><span>✦ Scented Bliss</span>
+      <span>✦ Hand-Poured with Love</span><span>✦ 100% Soy Wax</span><span>✦ All Natural</span><span>✦ Custom Orders Welcome</span><span>✦ Scented Bliss</span>
+    </div>
+  </div>
+
+  <!-- HERO: SPLIT -->
+  <section class="hero-bg py-16 md:py-0 min-h-[92vh] flex items-center relative overflow-hidden">
+    <!-- Decorative circles -->
+    <div style="position:absolute;width:400px;height:400px;border-radius:50%;background:rgba(214,51,132,0.07);top:-100px;right:-100px;pointer-events:none;"></div>
+    <div style="position:absolute;width:300px;height:300px;border-radius:50%;background:rgba(124,58,237,0.06);bottom:-80px;left:-80px;pointer-events:none;"></div>
+
+    <div class="max-w-6xl mx-auto px-6 w-full grid md:grid-cols-2 items-center gap-10">
+      <!-- Text -->
+      <div class="py-12">
+        <div class="eyebrow mb-4">✦ Kenzie's Kandles ✦</div>
+        <div class="hero-script">Kenzie's</div>
+        <div class="hero-bold" style="margin-top:-0.5rem;">KANDLES</div>
+        <p class="tagline mt-4 mb-8">Hand-Poured &nbsp;·&nbsp; All Natural &nbsp;·&nbsp; Scented Bliss</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="#products" class="btn-primary">Shop Kandles 🕯️</a>
+          <a href="#about" class="btn-outline">Meet Kenzie</a>
+        </div>
+        <!-- Features row -->
+        <div style="display:flex;gap:1.5rem;margin-top:2.5rem;padding-top:2rem;border-top:1.5px solid rgba(214,51,132,0.12);">
+          <div style="text-align:center;">
+            <div style="font-size:1.6rem;font-weight:900;color:var(--pink);">100%</div>
+            <div style="font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,5,51,0.4);margin-top:2px;">Soy Wax</div>
+          </div>
+          <div style="width:1px;background:rgba(214,51,132,0.15);"></div>
+          <div style="text-align:center;">
+            <div style="font-size:1.6rem;font-weight:900;color:var(--purple);">Small</div>
+            <div style="font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,5,51,0.4);margin-top:2px;">Batch</div>
+          </div>
+          <div style="width:1px;background:rgba(214,51,132,0.15);"></div>
+          <div style="text-align:center;">
+            <div style="font-size:1.6rem;font-weight:900;color:var(--pink);">💜</div>
+            <div style="font-size:0.65rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(26,5,51,0.4);margin-top:2px;">Handmade</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image -->
+      <div style="display:flex;align-items:flex-end;justify-content:center;padding:2rem 0;">
+        <img src="kenzies-mascot.png" alt="Kenzie with her candles" style="width:100%;max-width:500px;object-fit:contain;filter:drop-shadow(0 16px 48px rgba(214,51,132,0.25));">
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <div class="divider"></div>
+  <section style="background:#fff;padding:4rem 0;">
+    <div class="max-w-4xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="feature-box">
+        <div style="font-size:2rem;margin-bottom:1rem;">🌿</div>
+        <h3 style="font-weight:800;color:var(--pink);font-size:1.05rem;margin-bottom:0.35rem;">100% Soy Wax</h3>
+        <p style="color:rgba(26,5,51,0.45);font-size:0.875rem;">Clean-burning, eco-friendly, long-lasting</p>
+      </div>
+      <div class="feature-box">
+        <div style="font-size:2rem;margin-bottom:1rem;">🎀</div>
+        <h3 style="font-weight:800;color:var(--purple);font-size:1.05rem;margin-bottom:0.35rem;">Hand-Poured</h3>
+        <p style="color:rgba(26,5,51,0.45);font-size:0.875rem;">Every candle made individually with love</p>
+      </div>
+      <div class="feature-box">
+        <div style="font-size:2rem;margin-bottom:1rem;">✨</div>
+        <h3 style="font-weight:800;color:var(--pink);font-size:1.05rem;margin-bottom:0.35rem;">All Natural</h3>
+        <p style="color:rgba(26,5,51,0.45);font-size:0.875rem;">Premium fragrance oils, no harsh chemicals</p>
+      </div>
+    </div>
+  </section>
+  <div class="divider"></div>
+
+  <!-- PRODUCTS -->
+  <section id="products" style="background:var(--blush);padding:5rem 0;">
+    <div class="max-w-6xl mx-auto px-6">
+      <div style="text-align:center;margin-bottom:4rem;">
+        <div class="eyebrow" style="margin-bottom:0.5rem;">✦ The Collection ✦</div>
+        <span class="script" style="font-size:2.8rem;color:var(--pink);display:block;">Our</span>
+        <span style="font-size:2.8rem;font-weight:900;letter-spacing:0.04em;display:block;margin-top:-0.5rem;">KANDLES</span>
+        <p style="color:rgba(26,5,51,0.45);margin-top:0.75rem;">Six scents, each one a little universe ✨</p>
+      </div>
+
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));display:grid;gap:1.5rem;">
+
+        <div class="product-card">
+          <div class="jar-wrap" style="background:linear-gradient(160deg,rgba(232,121,249,0.15),rgba(192,132,252,0.15));">
+            <div class="price-badge">$12</div>
+            <div style="text-align:center;position:relative;">
+              <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:1.4rem;animation:flame 1.4s ease-in-out infinite alternate;transform-origin:bottom center;">🔥</div>
+              <div class="jar" style="background:rgba(240,200,250,0.2);"><div class="jar-wax wax-1" style="height:82px;"></div></div>
+              <div class="jar-lid"></div>
+            </div>
+          </div>
+          <div style="padding:1.25rem;">
+            <h3 style="font-weight:800;font-size:1.05rem;margin-bottom:0.4rem;">Lavender Dreams</h3>
+            <p style="color:rgba(26,5,51,0.45);font-size:0.85rem;line-height:1.6;margin-bottom:0.75rem;">Soft lavender and vanilla — perfect for unwinding.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span class="scent-tag" style="background:rgba(232,121,249,0.12);border:1px solid rgba(232,121,249,0.25);color:var(--lavender);">Lavender</span>
+              <span class="scent-tag" style="background:rgba(232,121,249,0.12);border:1px solid rgba(232,121,249,0.25);color:var(--lavender);">Vanilla</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="jar-wrap" style="background:linear-gradient(160deg,rgba(244,114,182,0.15),rgba(192,132,252,0.15));">
+            <div class="price-badge">$12</div>
+            <div style="text-align:center;position:relative;">
+              <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:1.4rem;animation:flame 1.6s ease-in-out infinite alternate 0.2s;transform-origin:bottom center;">🔥</div>
+              <div class="jar" style="background:rgba(255,182,213,0.2);"><div class="jar-wax wax-2" style="height:82px;"></div></div>
+              <div class="jar-lid"></div>
+            </div>
+          </div>
+          <div style="padding:1.25rem;">
+            <h3 style="font-weight:800;font-size:1.05rem;margin-bottom:0.4rem;">Berry Bliss</h3>
+            <p style="color:rgba(26,5,51,0.45);font-size:0.85rem;line-height:1.6;margin-bottom:0.75rem;">Sweet mixed berries — fruity and summery.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span class="scent-tag" style="background:rgba(214,51,132,0.1);border:1px solid rgba(214,51,132,0.2);color:var(--pink);">Strawberry</span>
+              <span class="scent-tag" style="background:rgba(214,51,132,0.1);border:1px solid rgba(214,51,132,0.2);color:var(--pink);">Blueberry</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="jar-wrap" style="background:linear-gradient(160deg,rgba(253,230,138,0.2),rgba(251,191,36,0.15));">
+            <div class="price-badge" style="color:#d97706;">$12</div>
+            <div style="text-align:center;position:relative;">
+              <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:1.4rem;animation:flame 1.8s ease-in-out infinite alternate 0.4s;transform-origin:bottom center;">🔥</div>
+              <div class="jar" style="background:rgba(255,240,200,0.2);"><div class="jar-wax wax-3" style="height:82px;"></div></div>
+              <div class="jar-lid"></div>
+            </div>
+          </div>
+          <div style="padding:1.25rem;">
+            <h3 style="font-weight:800;font-size:1.05rem;margin-bottom:0.4rem;">Cotton Candy</h3>
+            <p style="color:rgba(26,5,51,0.45);font-size:0.85rem;line-height:1.6;margin-bottom:0.75rem;">Sweet, fluffy, nostalgic — like a summer fair.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span class="scent-tag" style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.25);color:#d97706;">Sweet</span>
+              <span class="scent-tag" style="background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.25);color:#d97706;">Sugary</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="jar-wrap" style="background:linear-gradient(160deg,rgba(139,92,246,0.15),rgba(76,29,149,0.12));">
+            <div class="price-badge" style="color:var(--purple);">$14</div>
+            <div style="text-align:center;position:relative;">
+              <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:1.4rem;animation:flame 1.5s ease-in-out infinite alternate 0.1s;transform-origin:bottom center;">🔥</div>
+              <div class="jar" style="background:rgba(180,150,240,0.2);"><div class="jar-wax wax-4" style="height:82px;"></div></div>
+              <div class="jar-lid"></div>
+            </div>
+          </div>
+          <div style="padding:1.25rem;">
+            <h3 style="font-weight:800;font-size:1.05rem;margin-bottom:0.4rem;">Midnight Violet</h3>
+            <p style="color:rgba(26,5,51,0.45);font-size:0.85rem;line-height:1.6;margin-bottom:0.75rem;">Deep violet and musk — mysterious and cozy.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span class="scent-tag" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--purple);">Violet</span>
+              <span class="scent-tag" style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--purple);">Musk</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="jar-wrap" style="background:linear-gradient(160deg,rgba(251,113,133,0.15),rgba(244,114,182,0.12));">
+            <div class="price-badge" style="color:#e11d48;">$13</div>
+            <div style="text-align:center;position:relative;">
+              <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:1.4rem;animation:flame 2s ease-in-out infinite alternate 0.5s;transform-origin:bottom center;">🔥</div>
+              <div class="jar" style="background:rgba(255,190,200,0.2);"><div class="jar-wax wax-5" style="height:82px;"></div></div>
+              <div class="jar-lid"></div>
+            </div>
+          </div>
+          <div style="padding:1.25rem;">
+            <h3 style="font-weight:800;font-size:1.05rem;margin-bottom:0.4rem;">Pink Peony</h3>
+            <p style="color:rgba(26,5,51,0.45);font-size:0.85rem;line-height:1.6;margin-bottom:0.75rem;">Fresh, floral, feminine — bouquet on your nightstand.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span class="scent-tag" style="background:rgba(225,29,72,0.1);border:1px solid rgba(225,29,72,0.2);color:#e11d48;">Peony</span>
+              <span class="scent-tag" style="background:rgba(225,29,72,0.1);border:1px solid rgba(225,29,72,0.2);color:#e11d48;">Rose</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="jar-wrap" style="background:linear-gradient(160deg,rgba(110,231,183,0.15),rgba(52,211,153,0.12));">
+            <div class="price-badge" style="color:#059669;">$13</div>
+            <div style="text-align:center;position:relative;">
+              <div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);font-size:1.4rem;animation:flame 2.2s ease-in-out infinite alternate 0.7s;transform-origin:bottom center;">🔥</div>
+              <div class="jar" style="background:rgba(180,240,210,0.2);"><div class="jar-wax wax-6" style="height:82px;"></div></div>
+              <div class="jar-lid"></div>
+            </div>
+          </div>
+          <div style="padding:1.25rem;">
+            <h3 style="font-weight:800;font-size:1.05rem;margin-bottom:0.4rem;">Garden Party</h3>
+            <p style="color:rgba(26,5,51,0.45);font-size:0.85rem;line-height:1.6;margin-bottom:0.75rem;">Cucumber, mint, florals — a breath of fresh air.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span class="scent-tag" style="background:rgba(5,150,105,0.1);border:1px solid rgba(5,150,105,0.2);color:#059669;">Mint</span>
+              <span class="scent-tag" style="background:rgba(5,150,105,0.1);border:1px solid rgba(5,150,105,0.2);color:#059669;">Fresh</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div class="divider"></div>
+  <section id="about" class="about-bg" style="padding:5rem 0;">
+    <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+      <div style="position:relative;">
+        <img src="kenzies-mascot.png" alt="Kenzie" style="width:100%;max-width:420px;display:block;filter:drop-shadow(0 12px 40px rgba(214,51,132,0.2));">
+      </div>
+      <div>
+        <div class="eyebrow" style="margin-bottom:0.75rem;">✦ The Maker ✦</div>
+        <div class="script" style="font-size:2.4rem;color:var(--pink);display:block;">Hi, I'm</div>
+        <div style="font-size:2.8rem;font-weight:900;letter-spacing:0.04em;margin-top:-0.5rem;margin-bottom:1.5rem;">KENZIE! 👋</div>
+        <p style="color:rgba(26,5,51,0.6);font-size:1rem;line-height:1.8;margin-bottom:1rem;">
+          I started making candles when I was 13, and I haven't been able to stop since! There's something so magical about blending scents and watching a blank jar turn into something beautiful.
+        </p>
+        <p style="color:rgba(26,5,51,0.5);line-height:1.8;margin-bottom:2rem;">
+          Every Kenzie's Kandle is hand-poured in small batches using 100% soy wax and premium fragrance oils. I put so much love into each one — I hope they bring a little magic to your space. 💜
+        </p>
+        <a href="#contact" class="btn-primary">Say Hello 💌</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div class="divider"></div>
+  <section id="contact" style="background:#fff;padding:5rem 0;">
+    <div class="max-w-2xl mx-auto px-6">
+      <div style="text-align:center;margin-bottom:3rem;">
+        <div class="eyebrow" style="margin-bottom:0.5rem;">✦ Say Hello ✦</div>
+        <span class="script" style="font-size:2.8rem;color:var(--pink);display:block;">Get in</span>
+        <span style="font-size:2.8rem;font-weight:900;letter-spacing:0.04em;display:block;margin-top:-0.5rem;">TOUCH</span>
+        <p style="color:rgba(26,5,51,0.45);margin-top:0.75rem;">Custom orders and questions always welcome 💌</p>
+      </div>
+      <form class="space-y-5">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+          <div><label>Name</label><input type="text" placeholder="Your name"></div>
+          <div><label>Email</label><input type="email" placeholder="you@email.com"></div>
+        </div>
+        <div><label>Message</label><textarea rows="4" placeholder="Tell me what scents you're dreaming of..." style="resize:none;"></textarea></div>
+        <button type="submit" class="btn-primary" style="width:100%;text-align:center;">Send Message 💜</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer-bg" style="padding:3.5rem 0;">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:0.4rem;">
+        <span class="script" style="font-size:2rem;color:rgba(255,255,255,0.9);">Kenzie's</span>
+        <span style="font-size:1.8rem;font-weight:900;letter-spacing:0.06em;">KANDLES</span>
+      </div>
+      <p style="color:rgba(255,255,255,0.7);font-size:0.85rem;font-style:italic;margin-bottom:1.75rem;">Hand-Poured · All Natural · Scented Bliss</p>
+      <div style="display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;">
+        <a href="#" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:white;font-size:0.875rem;font-weight:700;padding:0.6rem 1.5rem;border-radius:9999px;transition:all 0.2s;display:inline-block;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">📸 Instagram</a>
+        <a href="#" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:white;font-size:0.875rem;font-weight:700;padding:0.6rem 1.5rem;border-radius:9999px;transition:all 0.2s;display:inline-block;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">🎵 TikTok</a>
+        <a href="#" style="background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);color:white;font-size:0.875rem;font-weight:700;padding:0.6rem 1.5rem;border-radius:9999px;transition:all 0.2s;display:inline-block;" onmouseover="this.style.background='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.2)'">🛍️ Etsy</a>
+      </div>
+      <p style="color:rgba(255,255,255,0.4);font-size:0.75rem;">© 2025 Kenzie's Kandles. Made with 💜 by Kenzie.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,175 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = "Kenzie's Kandles",
+  description = "Handcrafted soy candles made with love — hand-poured, all natural, scented bliss.",
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/png" href="/images/mascot.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-[#1a0533] text-white overflow-x-hidden">
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  * {
+    font-family: 'Quicksand', sans-serif;
+  }
+  .font-script {
+    font-family: 'Dancing Script', cursive;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #1a0533; }
+  ::-webkit-scrollbar-thumb { background: rgba(196,181,253,0.3); border-radius: 3px; }
+
+  /* Section divider */
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(232,121,249,0.5), rgba(244,114,182,0.5), transparent);
+  }
+
+  /* Bokeh glow circles */
+  .bokeh {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(18px);
+    pointer-events: none;
+  }
+
+  /* Sparkle dots */
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.1; transform: scale(0.6); }
+    50%       { opacity: 1;   transform: scale(1.2); }
+  }
+  .sparkle-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    animation: twinkle var(--d, 2.5s) ease-in-out infinite var(--delay, 0s);
+  }
+
+  /* Candle flame */
+  @keyframes flame {
+    0%   { transform: scaleX(1) rotate(-3deg) translateX(-50%); }
+    100% { transform: scaleX(0.85) rotate(3deg) translateX(-50%); }
+  }
+  .flame-anim {
+    animation: flame 1.4s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+  }
+
+  /* Float */
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-14px); }
+  }
+  .float { animation: float 5s ease-in-out infinite; }
+
+  /* Marquee */
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .marquee-track {
+    display: flex;
+    gap: 2.5rem;
+    animation: marquee 22s linear infinite;
+    white-space: nowrap;
+  }
+
+  /* Glow btn */
+  .glow-btn {
+    background: linear-gradient(135deg, #8b5cf6, #f472b6);
+    box-shadow: 0 0 28px rgba(139,92,246,0.4), 0 0 56px rgba(244,114,182,0.25);
+    transition: all 0.25s;
+  }
+  .glow-btn:hover {
+    box-shadow: 0 0 48px rgba(139,92,246,0.55), 0 0 90px rgba(244,114,182,0.35);
+    transform: translateY(-3px);
+  }
+
+  /* Glass card */
+  .glass-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(196,181,253,0.18);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .glass-card:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(244,114,182,0.4);
+    box-shadow: 0 0 40px rgba(244,114,182,0.12), 0 0 80px rgba(139,92,246,0.08);
+    transform: translateY(-7px);
+  }
+
+  /* Glass jar */
+  .jar {
+    position: relative;
+    width: 78px;
+    height: 98px;
+    border-radius: 5px 5px 10px 10px;
+    border: 2px solid rgba(255,255,255,0.45);
+    overflow: hidden;
+  }
+  .jar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.12) 50%, transparent 75%);
+  }
+  .jar-lid {
+    width: 88px;
+    height: 11px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.5);
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .jar-wax {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 82px;
+    border-radius: 0 0 8px 8px;
+  }
+
+  /* Form */
+  .form-input {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(196,181,253,0.2);
+    color: white;
+    border-radius: 12px;
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+    font-family: 'Quicksand', sans-serif;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-input::placeholder { color: rgba(255,255,255,0.3); }
+  .form-input:focus {
+    border-color: rgba(244,114,182,0.6);
+    box-shadow: 0 0 20px rgba(244,114,182,0.1);
+  }
+</style>

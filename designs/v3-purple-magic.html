@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kenzie's Kandles — Design 3: Purple Magic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Quicksand', sans-serif; }
+    .script { font-family: 'Dancing Script', cursive; }
+
+    :root {
+      --deep: #1a0533;
+      --purple: #6b21a8;
+      --violet: #8b5cf6;
+      --lavender: #c4b5fd;
+      --pink: #f472b6;
+      --rose: #fb7185;
+      --gold: #fbbf24;
+      --glow-purple: rgba(139,92,246,0.4);
+      --glow-pink: rgba(244,114,182,0.4);
+    }
+
+    body { background: var(--deep); color: white; overflow-x: hidden; }
+
+    /* Animated gradient background */
+    .bg-hero {
+      background: radial-gradient(ellipse at 20% 30%, rgba(139,92,246,0.3) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 70%, rgba(244,114,182,0.25) 0%, transparent 60%),
+                  radial-gradient(ellipse at 50% 50%, rgba(107,33,168,0.4) 0%, transparent 70%),
+                  linear-gradient(135deg, #0f0018 0%, #1a0533 40%, #0d0025 100%);
+    }
+
+    /* Stars */
+    .stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .star { position: absolute; border-radius: 50%; background: white; animation: twinkle var(--dur, 3s) ease-in-out infinite var(--delay, 0s); }
+    @keyframes twinkle { 0%,100% { opacity: 0.1; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+
+    /* Script logo */
+    .logo-script { font-family: 'Dancing Script', cursive; color: #f0abfc; text-shadow: 0 0 20px rgba(240,171,252,0.5); }
+    .logo-bold { font-weight: 900; letter-spacing: 0.06em; }
+
+    /* Glow effects */
+    .glow-text { text-shadow: 0 0 40px rgba(196,181,253,0.6), 0 0 80px rgba(139,92,246,0.3); }
+    .glow-pink { text-shadow: 0 0 40px rgba(244,114,182,0.8), 0 0 80px rgba(244,114,182,0.4); }
+    .glow-btn {
+      background: linear-gradient(135deg, var(--violet), var(--pink));
+      box-shadow: 0 0 30px var(--glow-purple), 0 0 60px var(--glow-pink), inset 0 1px 0 rgba(255,255,255,0.2);
+    }
+    .glow-btn:hover { box-shadow: 0 0 50px var(--glow-purple), 0 0 100px var(--glow-pink); transform: translateY(-2px); }
+    .glow-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,181,253,0.2);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+    .glow-card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(244,114,182,0.4);
+      box-shadow: 0 0 40px rgba(244,114,182,0.15), 0 0 80px rgba(139,92,246,0.1);
+      transform: translateY(-6px);
+    }
+
+    .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--lavender), var(--pink), transparent); opacity: 0.3; }
+
+    /* Candle gradients */
+    .c1 { background: linear-gradient(160deg, #8b5cf6, #c084fc, #f9a8d4); }
+    .c2 { background: linear-gradient(160deg, #ec4899, #f9a8d4, #c084fc); }
+    .c3 { background: linear-gradient(160deg, #fcd34d, #fde68a, #fbbf24); }
+    .c4 { background: linear-gradient(160deg, #4c1d95, #7c3aed, #a855f7); }
+    .c5 { background: linear-gradient(160deg, #9f1239, #fb7185, #fda4af); }
+    .c6 { background: linear-gradient(160deg, #064e3b, #6ee7b7, #34d399); }
+
+    .float { animation: float 5s ease-in-out infinite; }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    .flame { animation: flicker 1.5s ease-in-out infinite alternate; }
+    @keyframes flicker { 0% { transform: scale(1) rotate(-4deg); } 100% { transform: scale(1.2) rotate(4deg); } }
+
+    input, textarea {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(196,181,253,0.2);
+      color: white;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
+    input:focus, textarea:focus {
+      border-color: rgba(244,114,182,0.6);
+      box-shadow: 0 0 20px rgba(244,114,182,0.1);
+    }
+
+    label { color: rgba(255,255,255,0.6); }
+
+    .nav-bg { background: rgba(10,0,25,0.85); border-bottom: 1px solid rgba(196,181,253,0.1); backdrop-filter: blur(20px); }
+  </style>
+</head>
+<body class="bg-hero">
+
+  <!-- NAV -->
+  <nav class="nav-bg fixed top-0 inset-x-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-1 leading-none">
+        <div>
+          <div class="logo-script" style="font-size:2.2rem;line-height:1;">Kenzie's</div>
+          <div class="logo-bold" style="font-size:1.7rem;color:white;margin-top:-0.25rem;">KANDLES</div>
+        </div>
+      </div>
+      <div class="hidden md:flex gap-8 text-sm font-medium" style="color: rgba(255,255,255,0.5);">
+        <a href="#products" class="hover:text-white transition-colors">Shop</a>
+        <a href="#about" class="hover:text-white transition-colors">About</a>
+        <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+      </div>
+      <a href="#contact" class="glow-btn text-white text-sm font-bold px-6 py-2.5 rounded-full transition-all">
+        Order Now ✨
+      </a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="bg-hero min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+    <!-- Stars -->
+    <div class="stars">
+      <div class="star" style="width:2px;height:2px;top:10%;left:15%;--dur:2.5s;--delay:0s;"></div>
+      <div class="star" style="width:3px;height:3px;top:20%;left:75%;--dur:3s;--delay:0.5s;"></div>
+      <div class="star" style="width:2px;height:2px;top:35%;left:40%;--dur:2s;--delay:1s;"></div>
+      <div class="star" style="width:4px;height:4px;top:60%;left:10%;--dur:3.5s;--delay:0.2s;"></div>
+      <div class="star" style="width:2px;height:2px;top:70%;left:85%;--dur:2.8s;--delay:0.7s;"></div>
+      <div class="star" style="width:3px;height:3px;top:80%;left:55%;--dur:2.2s;--delay:1.2s;"></div>
+      <div class="star" style="width:2px;height:2px;top:15%;left:55%;--dur:3.2s;--delay:0.3s;"></div>
+      <div class="star" style="width:2px;height:2px;top:45%;left:90%;--dur:2.7s;--delay:0.8s;"></div>
+      <div class="star" style="width:5px;height:5px;top:25%;left:30%;--dur:4s;--delay:0s;opacity:0.4;"></div>
+      <div class="star" style="width:3px;height:3px;top:55%;left:65%;--dur:2.4s;--delay:1.5s;"></div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 w-full grid md:grid-cols-2 items-center gap-8 relative z-10">
+      <!-- Text -->
+      <div style="padding:3rem 0;text-align:left;">
+        <div style="display:inline-flex;align-items:center;gap:0.5rem;background:rgba(196,181,253,0.1);border:1px solid rgba(196,181,253,0.2);color:var(--lavender);font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:0.5rem 1.25rem;border-radius:9999px;margin-bottom:1.5rem;">
+          ✦ &nbsp; Handcrafted with Love &nbsp; ✦
+        </div>
+        <div class="logo-script glow-text" style="font-size:clamp(4rem,8vw,6rem);display:block;line-height:0.9;">Kenzie's</div>
+        <div class="logo-bold glow-text" style="font-size:clamp(4rem,9vw,7rem);color:white;display:block;margin-top:-0.4rem;line-height:1;">KANDLES</div>
+        <p style="color:rgba(255,255,255,0.7);font-style:italic;font-size:1.1rem;margin:1rem 0 2rem;letter-spacing:0.02em;">Hand-Poured &nbsp;·&nbsp; All Natural &nbsp;·&nbsp; Scented Bliss</p>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="#products" class="glow-btn font-bold px-8 py-3.5 rounded-full text-base transition-all">
+            Shop Kandles 🕯️
+          </a>
+          <a href="#about" style="color:var(--lavender);border:1px solid rgba(196,181,253,0.3);padding:0.875rem 2rem;border-radius:9999px;font-weight:700;font-size:1rem;transition:all 0.2s;display:inline-block;" onmouseover="this.style.borderColor='rgba(196,181,253,0.7)';this.style.background='rgba(196,181,253,0.05)'" onmouseout="this.style.borderColor='rgba(196,181,253,0.3)';this.style.background='transparent'">
+            Meet Kenzie
+          </a>
+        </div>
+      </div>
+      <!-- Mascot -->
+      <div style="display:flex;align-items:flex-end;justify-content:center;">
+        <img src="kenzies-mascot.png" alt="Kenzie with her candles" style="width:100%;max-width:520px;object-fit:contain;filter:drop-shadow(0 0 40px rgba(244,114,182,0.4)) drop-shadow(0 20px 60px rgba(139,92,246,0.3));">
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section style="background:rgba(255,255,255,0.02);border-top:1px solid rgba(196,181,253,0.08);border-bottom:1px solid rgba(196,181,253,0.08);" class="py-16">
+    <div class="max-w-4xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div class="p-6">
+        <div style="width:64px;height:64px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;margin:0 auto 1rem;">🌿</div>
+        <h3 class="serif text-xl mb-2" style="color:var(--lavender);">100% Soy Wax</h3>
+        <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;">Clean-burning, eco-friendly, long-lasting</p>
+      </div>
+      <div class="p-6">
+        <div style="width:64px;height:64px;background:rgba(244,114,182,0.15);border:1px solid rgba(244,114,182,0.3);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;margin:0 auto 1rem;">🎀</div>
+        <h3 class="serif text-xl mb-2" style="color:var(--pink);">Hand-Poured</h3>
+        <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;">Every candle made individually with care</p>
+      </div>
+      <div class="p-6">
+        <div style="width:64px;height:64px;background:rgba(251,191,36,0.15);border:1px solid rgba(251,191,36,0.3);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;margin:0 auto 1rem;">✨</div>
+        <h3 class="serif text-xl mb-2" style="color:var(--gold);">Made with Love</h3>
+        <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;">Small batch, personal touch every time</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="py-24" style="background:linear-gradient(180deg, var(--deep) 0%, #0d0125 100%);">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <div style="color:var(--pink);font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;">✦ The Collection ✦</div>
+        <h2 class="serif glow-text" style="font-size:3.5rem;color:white;margin-bottom:1rem;">Our Kandles</h2>
+        <p style="color:rgba(255,255,255,0.4);">Each scent is a little universe ✨</p>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div class="glow-card rounded-2xl overflow-hidden">
+          <div class="h-52 c1 relative flex items-end justify-center pb-5">
+            <div class="text-center"><div class="flame text-4xl">🔥</div><div style="width:36px;height:72px;background:rgba(255,255,255,0.2);border-radius:8px;margin:4px auto 0;"></div></div>
+            <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);color:var(--lavender);font-size:0.8rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(196,181,253,0.3);">$12</div>
+          </div>
+          <div class="p-5">
+            <h3 class="serif text-xl mb-1" style="color:var(--lavender);">Lavender Dreams</h3>
+            <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;line-height:1.6;margin-bottom:0.75rem;">Soft lavender and vanilla — perfect for winding down.</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+              <span style="background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.3);color:var(--lavender);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Lavender</span>
+              <span style="background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.3);color:var(--lavender);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Vanilla</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glow-card rounded-2xl overflow-hidden">
+          <div class="h-52 c2 relative flex items-end justify-center pb-5">
+            <div class="text-center"><div class="flame text-4xl" style="animation-delay:0.2s;">🔥</div><div style="width:36px;height:72px;background:rgba(255,255,255,0.2);border-radius:8px;margin:4px auto 0;"></div></div>
+            <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);color:var(--pink);font-size:0.8rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(244,114,182,0.3);">$12</div>
+          </div>
+          <div class="p-5">
+            <h3 class="serif text-xl mb-1" style="color:var(--pink);">Berry Bliss</h3>
+            <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;line-height:1.6;margin-bottom:0.75rem;">Sweet mixed berries — a fruity, summery glow.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span style="background:rgba(244,114,182,0.2);border:1px solid rgba(244,114,182,0.3);color:var(--pink);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Strawberry</span>
+              <span style="background:rgba(244,114,182,0.2);border:1px solid rgba(244,114,182,0.3);color:var(--pink);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Blueberry</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glow-card rounded-2xl overflow-hidden">
+          <div class="h-52 c3 relative flex items-end justify-center pb-5">
+            <div class="text-center"><div class="flame text-4xl" style="animation-delay:0.4s;">🔥</div><div style="width:36px;height:72px;background:rgba(255,255,255,0.2);border-radius:8px;margin:4px auto 0;"></div></div>
+            <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);color:var(--gold);font-size:0.8rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(251,191,36,0.3);">$12</div>
+          </div>
+          <div class="p-5">
+            <h3 class="serif text-xl mb-1" style="color:var(--gold);">Cotton Candy</h3>
+            <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;line-height:1.6;margin-bottom:0.75rem;">Sweet, fluffy, nostalgic — like a summer fair night.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span style="background:rgba(251,191,36,0.2);border:1px solid rgba(251,191,36,0.3);color:var(--gold);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Sweet</span>
+              <span style="background:rgba(251,191,36,0.2);border:1px solid rgba(251,191,36,0.3);color:var(--gold);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Sugary</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glow-card rounded-2xl overflow-hidden">
+          <div class="h-52 c4 relative flex items-end justify-center pb-5">
+            <div class="text-center"><div class="flame text-4xl" style="animation-delay:0.1s;">🔥</div><div style="width:36px;height:72px;background:rgba(255,255,255,0.2);border-radius:8px;margin:4px auto 0;"></div></div>
+            <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);color:var(--lavender);font-size:0.8rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(196,181,253,0.3);">$14</div>
+          </div>
+          <div class="p-5">
+            <h3 class="serif text-xl mb-1" style="color:var(--lavender);">Midnight Violet</h3>
+            <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;line-height:1.6;margin-bottom:0.75rem;">Deep violet and musk — mysterious and cozy.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span style="background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.3);color:var(--lavender);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Violet</span>
+              <span style="background:rgba(139,92,246,0.2);border:1px solid rgba(139,92,246,0.3);color:var(--lavender);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Musk</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glow-card rounded-2xl overflow-hidden">
+          <div class="h-52 c5 relative flex items-end justify-center pb-5">
+            <div class="text-center"><div class="flame text-4xl" style="animation-delay:0.5s;">🔥</div><div style="width:36px;height:72px;background:rgba(255,255,255,0.2);border-radius:8px;margin:4px auto 0;"></div></div>
+            <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);color:var(--rose);font-size:0.8rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(251,113,133,0.3);">$13</div>
+          </div>
+          <div class="p-5">
+            <h3 class="serif text-xl mb-1" style="color:var(--rose);">Pink Peony</h3>
+            <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;line-height:1.6;margin-bottom:0.75rem;">Fresh, floral, feminine — bouquet on your nightstand.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span style="background:rgba(251,113,133,0.2);border:1px solid rgba(251,113,133,0.3);color:var(--rose);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Peony</span>
+              <span style="background:rgba(251,113,133,0.2);border:1px solid rgba(251,113,133,0.3);color:var(--rose);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Rose</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="glow-card rounded-2xl overflow-hidden">
+          <div class="h-52 c6 relative flex items-end justify-center pb-5">
+            <div class="text-center"><div class="flame text-4xl" style="animation-delay:0.7s;">🔥</div><div style="width:36px;height:72px;background:rgba(255,255,255,0.2);border-radius:8px;margin:4px auto 0;"></div></div>
+            <div style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.3);backdrop-filter:blur(8px);color:#6ee7b7;font-size:0.8rem;font-weight:700;padding:0.25rem 0.75rem;border-radius:20px;border:1px solid rgba(110,231,183,0.3);">$13</div>
+          </div>
+          <div class="p-5">
+            <h3 class="serif text-xl mb-1" style="color:#6ee7b7;">Garden Party</h3>
+            <p style="color:rgba(255,255,255,0.4);font-size:0.875rem;line-height:1.6;margin-bottom:0.75rem;">Cucumber, mint, florals — a breath of fresh air.</p>
+            <div style="display:flex;gap:0.5rem;">
+              <span style="background:rgba(110,231,183,0.2);border:1px solid rgba(110,231,183,0.3);color:#6ee7b7;font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Mint</span>
+              <span style="background:rgba(110,231,183,0.2);border:1px solid rgba(110,231,183,0.3);color:#6ee7b7;font-size:0.7rem;font-weight:700;letter-spacing:0.05em;padding:0.2rem 0.75rem;border-radius:20px;">Fresh</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" style="background:rgba(255,255,255,0.02);border-top:1px solid rgba(196,181,253,0.08);" class="py-24">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center gap-16">
+        <div class="flex-shrink-0">
+          <img src="kenzies-mascot.png" alt="Kenzie" style="width:340px;max-width:100%;filter:drop-shadow(0 0 30px rgba(244,114,182,0.35)) drop-shadow(0 12px 40px rgba(139,92,246,0.3));">
+        </div>
+        <div>
+          <div style="color:var(--pink);font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;">✦ The Maker ✦</div>
+          <h2 class="serif glow-text mb-6" style="font-size:3.5rem;color:white;">Hi, I'm Kenzie! 👋</h2>
+          <p style="color:rgba(255,255,255,0.5);font-size:1.1rem;line-height:1.8;margin-bottom:1rem;">
+            I started making candles when I was 13, and I haven't been able to stop since! There's something so magical about blending scents and watching a blank jar transform into something beautiful.
+          </p>
+          <p style="color:rgba(255,255,255,0.4);line-height:1.8;margin-bottom:2rem;">
+            Every Kenzie's Kandle is hand-poured in small batches using 100% soy wax and premium fragrance oils. I put so much love into each one — I hope they bring a little magic to your space. 💜
+          </p>
+          <a href="#contact" class="glow-btn inline-flex font-bold px-8 py-3.5 rounded-full text-base transition-all">
+            Say Hello →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="background:linear-gradient(180deg,#0d0125 0%,#1a0533 100%);border-top:1px solid rgba(196,181,253,0.08);" class="py-24">
+    <div class="max-w-2xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div style="color:var(--lavender);font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.75rem;">✦ Say Hello ✦</div>
+        <h2 class="serif glow-text" style="font-size:3.5rem;color:white;margin-bottom:0.75rem;">Get in Touch</h2>
+        <p style="color:rgba(255,255,255,0.4);">Custom orders and questions always welcome 💌</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(196,181,253,0.15);border-radius:24px;padding:2.5rem;backdrop-filter:blur(10px);">
+        <form class="space-y-5">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold mb-2" style="color:rgba(255,255,255,0.5);">Name</label>
+              <input type="text" placeholder="Your name" class="w-full px-4 py-3 rounded-xl text-sm font-medium">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold mb-2" style="color:rgba(255,255,255,0.5);">Email</label>
+              <input type="email" placeholder="you@email.com" class="w-full px-4 py-3 rounded-xl text-sm font-medium">
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold mb-2" style="color:rgba(255,255,255,0.5);">Message</label>
+            <textarea rows="4" placeholder="Tell me what you're dreaming of..." class="w-full px-4 py-3 rounded-xl text-sm font-medium resize-none"></textarea>
+          </div>
+          <button type="submit" class="glow-btn w-full justify-center font-bold py-4 rounded-full text-base transition-all">
+            Send Message 💜
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:#0a0018;border-top:1px solid rgba(196,181,253,0.08);" class="py-14">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <div style="display:flex;align-items:center;justify-content:center;gap:0.25rem;margin-bottom:0.5rem;">
+        <span class="logo-script" style="font-size:2rem;">Kenzie's</span>
+        <span class="logo-bold" style="font-size:1.75rem;color:white;">KANDLES</span>
+      </div>
+      <p style="color:rgba(255,255,255,0.3);font-size:0.875rem;margin-bottom:2rem;">Handcrafted candles made with love ✨</p>
+      <div style="display:flex;justify-content:center;gap:1rem;margin-bottom:2rem;">
+        <a href="#" style="background:rgba(255,255,255,0.07);border:1px solid rgba(196,181,253,0.15);color:rgba(255,255,255,0.6);font-size:0.875rem;font-weight:600;padding:0.6rem 1.5rem;border-radius:9999px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">Instagram</a>
+        <a href="#" style="background:rgba(255,255,255,0.07);border:1px solid rgba(196,181,253,0.15);color:rgba(255,255,255,0.6);font-size:0.875rem;font-weight:600;padding:0.6rem 1.5rem;border-radius:9999px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">TikTok</a>
+        <a href="#" style="background:rgba(255,255,255,0.07);border:1px solid rgba(196,181,253,0.15);color:rgba(255,255,255,0.6);font-size:0.875rem;font-weight:600;padding:0.6rem 1.5rem;border-radius:9999px;transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">Etsy</a>
+      </div>
+      <p style="color:rgba(255,255,255,0.2);font-size:0.75rem;">© 2025 Kenzie's Kandles. Made with 💜 by Kenzie.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

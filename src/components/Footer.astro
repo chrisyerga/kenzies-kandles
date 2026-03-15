@@ -1,0 +1,37 @@
+---
+import site from '../data/site.json';
+
+const socials = [
+  { label: '📸 Instagram', href: site.socials.instagram || '#' },
+  { label: '🎵 TikTok',    href: site.socials.tiktok    || '#' },
+  { label: '🛍️ Etsy',     href: site.socials.etsy      || '#' },
+];
+---
+<footer style="background:#0a0018; border-top:1px solid rgba(196,181,253,0.08);" class="py-14">
+  <div class="max-w-6xl mx-auto px-6 text-center">
+
+    <!-- Logo -->
+    <div class="flex items-center justify-center gap-1 mb-2 leading-none">
+      <span class="font-script" style="font-size:2rem; color:#f0abfc; text-shadow:0 0 16px rgba(240,171,252,0.4);">Kenzie's</span>
+      <span class="font-black tracking-widest text-white" style="font-size:1.75rem; margin-left:0.2rem;">KANDLES</span>
+    </div>
+
+    <p class="italic text-white/30 text-sm mb-8">{site.tagline}</p>
+
+    <!-- Social links -->
+    <div class="flex justify-center gap-3 mb-8 flex-wrap">
+      {socials.map(s => (
+        <a
+          href={s.href}
+          class="text-sm font-bold text-white/60 hover:text-white px-5 py-2 rounded-full transition-all hover:bg-white/10"
+          style="background:rgba(255,255,255,0.07); border:1px solid rgba(196,181,253,0.14);"
+        >
+          {s.label}
+        </a>
+      ))}
+    </div>
+
+    <p class="text-white/20 text-xs">© {new Date().getFullYear()} Kenzie's Kandles. Made with 💜 by Kenzie.</p>
+
+  </div>
+</footer>

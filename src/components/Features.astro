@@ -1,0 +1,42 @@
+---
+const features = [
+  {
+    icon: '🌿',
+    title: '100% Soy Wax',
+    description: 'Clean-burning, eco-friendly, and long-lasting',
+    color: 'rgba(232,121,249,0.15)',
+    border: 'rgba(232,121,249,0.25)',
+    titleColor: '#e879f9',
+  },
+  {
+    icon: '🎀',
+    title: 'Hand-Poured',
+    description: 'Every candle made individually with love',
+    color: 'rgba(244,114,182,0.15)',
+    border: 'rgba(244,114,182,0.25)',
+    titleColor: '#f472b6',
+  },
+  {
+    icon: '✨',
+    title: 'All Natural',
+    description: 'Premium fragrance oils, no harmful additives',
+    color: 'rgba(251,191,36,0.1)',
+    border: 'rgba(251,191,36,0.2)',
+    titleColor: '#fbbf24',
+  },
+];
+---
+<section style="background:rgba(255,255,255,0.02); border-top:1px solid rgba(196,181,253,0.08); border-bottom:1px solid rgba(196,181,253,0.08);" class="py-16">
+  <div class="max-w-4xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+    {features.map(f => (
+      <div class="p-6">
+        <div
+          class="w-16 h-16 rounded-[20px] flex items-center justify-center text-3xl mx-auto mb-4"
+          style={`background:${f.color}; border:1px solid ${f.border};`}
+        >{f.icon}</div>
+        <h3 class="text-lg font-extrabold mb-1" style={`color:${f.titleColor};`}>{f.title}</h3>
+        <p class="text-sm text-white/40">{f.description}</p>
+      </div>
+    ))}
+  </div>
+</section>

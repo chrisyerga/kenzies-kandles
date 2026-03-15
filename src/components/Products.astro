@@ -1,0 +1,38 @@
+---
+import ProductCard from './ProductCard.astro';
+import products from '../data/products.json';
+---
+<section
+  id="products"
+  class="py-24"
+  style="background: linear-gradient(180deg, #1a0533 0%, #0d0125 100%);"
+>
+  <div class="max-w-6xl mx-auto px-6">
+
+    <!-- Heading -->
+    <div class="text-center mb-16">
+      <p class="text-[0.7rem] font-extrabold tracking-[0.15em] uppercase mb-2" style="color:#e879f9;">✦ The Collection ✦</p>
+      <span class="font-script block leading-none" style="font-size:3rem; color:#e879f9; text-shadow:0 0 20px rgba(232,121,249,0.4);">Our</span>
+      <span class="font-black tracking-widest text-white block" style="font-size:3rem; margin-top:-0.5rem;">KANDLES</span>
+      <p class="text-white/40 mt-3">Six scents, each one a little universe ✨</p>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {products.map((product, i) => (
+        <ProductCard
+          name={product.name}
+          price={product.price}
+          description={product.description}
+          scents={product.scents}
+          waxColor={product.waxColor}
+          bgGlow={product.bgGlow}
+          tagColor={product.tagColor}
+          tagBg={product.tagBg}
+          delay={i * 0.15}
+        />
+      ))}
+    </div>
+
+  </div>
+</section>
