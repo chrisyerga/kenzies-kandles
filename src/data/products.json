@@ -8,7 +8,8 @@
     "waxColor": "from-purple-200 via-purple-400 to-pink-300",
     "bgGlow": "rgba(232,121,249,0.25)",
     "tagColor": "text-brand-lavender",
-    "tagBg": "bg-violet-950/50 border-violet-400/30"
+    "tagBg": "bg-violet-950/50 border-violet-400/30",
+    "image": "/images/glass-medium-three.jpeg"
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "waxColor": "from-pink-200 via-pink-400 to-purple-300",
     "bgGlow": "rgba(244,114,182,0.25)",
     "tagColor": "text-brand-pink",
-    "tagBg": "bg-pink-950/50 border-pink-400/30"
+    "tagBg": "bg-pink-950/50 border-pink-400/30",
+    "image": "/images/glass-medium-flowers.jpeg"
   },
   {
     "id": 3,
@@ -30,7 +32,8 @@
     "waxColor": "from-yellow-100 via-yellow-300 to-amber-300",
     "bgGlow": "rgba(251,191,36,0.2)",
     "tagColor": "text-brand-gold",
-    "tagBg": "bg-yellow-950/50 border-yellow-400/30"
+    "tagBg": "bg-yellow-950/50 border-yellow-400/30",
+    "image": "/images/can-medium.jpeg"
   },
   {
     "id": 4,
@@ -41,7 +44,8 @@
     "waxColor": "from-violet-300 via-violet-600 to-purple-800",
     "bgGlow": "rgba(139,92,246,0.3)",
     "tagColor": "text-brand-lavender",
-    "tagBg": "bg-violet-950/50 border-violet-400/30"
+    "tagBg": "bg-violet-950/50 border-violet-400/30",
+    "image": "/images/glass-medium-three.jpeg"
   },
   {
     "id": 5,
@@ -52,7 +56,8 @@
     "waxColor": "from-rose-200 via-rose-400 to-pink-400",
     "bgGlow": "rgba(251,113,133,0.25)",
     "tagColor": "text-brand-rose",
-    "tagBg": "bg-rose-950/50 border-rose-400/30"
+    "tagBg": "bg-rose-950/50 border-rose-400/30",
+    "image": "/images/glass-medium-flowers.jpeg"
   },
   {
     "id": 6,
@@ -63,6 +68,7 @@
     "waxColor": "from-emerald-100 via-emerald-300 to-green-400",
     "bgGlow": "rgba(110,231,183,0.2)",
     "tagColor": "text-emerald-300",
-    "tagBg": "bg-emerald-950/50 border-emerald-400/30"
+    "tagBg": "bg-emerald-950/50 border-emerald-400/30",
+    "image": "/images/petal-vase.JPG"
   }
 ]
