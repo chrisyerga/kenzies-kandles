@@ -1,0 +1,220 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} — Kenzie's Kandles Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d0125;
+      color: #e2d9f3;
+      min-height: 100vh;
+    }
+    a { color: #c4b5fd; text-decoration: none; }
+    a:hover { color: #e879f9; }
+
+    .topbar {
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(196,181,253,0.12);
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      height: 56px;
+    }
+    .topbar-brand {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      color: #e879f9;
+      white-space: nowrap;
+    }
+    .topbar-brand span {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      color: #c4b5fd;
+      text-transform: uppercase;
+    }
+    .topbar-nav {
+      display: flex;
+      gap: 0.25rem;
+      flex: 1;
+    }
+    .topbar-nav a {
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #a78bca;
+      transition: all 0.15s;
+    }
+    .topbar-nav a:hover, .topbar-nav a.active {
+      background: rgba(196,181,253,0.1);
+      color: #e2d9f3;
+    }
+    .topbar-logout form { margin: 0; }
+    .topbar-logout button {
+      background: none;
+      border: 1px solid rgba(196,181,253,0.2);
+      color: #a78bca;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+    .topbar-logout button:hover { color: #e2d9f3; border-color: rgba(196,181,253,0.4); }
+
+    main { padding: 2rem 1.5rem; max-width: 1100px; margin: 0 auto; }
+
+    h1 { font-size: 1.5rem; font-weight: 800; color: #fff; margin-bottom: 1.5rem; }
+    h2 { font-size: 1.15rem; font-weight: 700; color: #c4b5fd; margin-bottom: 1rem; }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,181,253,0.12);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+    th {
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      color: #a78bca;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(196,181,253,0.12);
+    }
+    td {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(196,181,253,0.07);
+      vertical-align: middle;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(255,255,255,0.02); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 7px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .btn-primary { background: #7c3aed; color: #fff; }
+    .btn-primary:hover { background: #6d28d9; color: #fff; }
+    .btn-secondary { background: rgba(196,181,253,0.1); color: #c4b5fd; border: 1px solid rgba(196,181,253,0.2); }
+    .btn-secondary:hover { background: rgba(196,181,253,0.18); color: #e2d9f3; }
+    .btn-danger { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); }
+    .btn-danger:hover { background: rgba(239,68,68,0.25); }
+    .btn-sm { padding: 0.25rem 0.6rem; font-size: 0.75rem; }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .badge-green { background: rgba(52,211,153,0.15); color: #6ee7b7; }
+    .badge-red { background: rgba(239,68,68,0.15); color: #fca5a5; }
+    .badge-purple { background: rgba(196,181,253,0.15); color: #c4b5fd; }
+
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #a78bca;
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+    }
+    input[type="text"], input[type="number"], input[type="email"], input[type="password"], textarea, select {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(196,181,253,0.2);
+      border-radius: 7px;
+      color: #e2d9f3;
+      padding: 0.55rem 0.75rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(196,181,253,0.5);
+    }
+    textarea { resize: vertical; min-height: 80px; }
+    input[type="checkbox"] { width: auto; margin-right: 0.5rem; }
+
+    .form-row { margin-bottom: 1rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    @media (max-width: 600px) {
+      .form-grid, .form-grid-3 { grid-template-columns: 1fr; }
+    }
+
+    .alert {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+    .alert-error { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); }
+    .alert-success { background: rgba(52,211,153,0.12); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.2); }
+
+    .unread-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: #e879f9;
+      border-radius: 50%;
+      margin-right: 6px;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-brand">
+      Kenzie's <span>KANDLES</span>
+    </div>
+    <nav class="topbar-nav">
+      <a href="/admin/products" class={Astro.url.pathname.includes('/products') ? 'active' : ''}>Products</a>
+      <a href="/admin/contacts" class={Astro.url.pathname.includes('/contacts') ? 'active' : ''}>Contacts</a>
+      <a href="/" target="_blank">↗ View Site</a>
+    </nav>
+    <div class="topbar-logout">
+      <form method="POST" action="/api/admin/logout">
+        <button type="submit">Log out</button>
+      </form>
+    </div>
+  </div>
+  <main>
+    <slot />
+  </main>
+</body>
+</html>

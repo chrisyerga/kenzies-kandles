@@ -1,6 +1,12 @@
 ---
 import ProductCard from './ProductCard.astro';
-import products from '../data/products.json';
+import { getPool } from '../lib/db';
+import type { Product } from '../lib/db';
+
+const pool = getPool();
+const { rows: products } = await pool.query<Product>(
+  'SELECT * FROM products WHERE in_stock = true ORDER BY sort_order ASC, id ASC'
+);
 ---
 <section
   id="products"
@@ -22,14 +28,15 @@ import products from '../data/products.json';
       {products.map((product, i) => (
         <ProductCard
           name={product.name}
-          price={product.price}
+          price={Number(product.price)}
+          salePrice={product.sale_price !== null ? Number(product.sale_price) : undefined}
           description={product.description}
           scents={product.scents}
-          waxColor={product.waxColor}
-          bgGlow={product.bgGlow}
-          tagColor={product.tagColor}
-          tagBg={product.tagBg}
-          image={product.image}
+          waxColor={product.wax_color}
+          bgGlow={product.bg_glow}
+          tagColor={product.tag_color}
+          tagBg={product.tag_bg}
+          image={product.image || undefined}
           delay={i * 0.15}
         />
       ))}

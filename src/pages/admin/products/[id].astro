@@ -1,0 +1,152 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import { isAuthenticated } from '../../../lib/auth';
+import { getPool } from '../../../lib/db';
+import type { Product } from '../../../lib/db';
+
+if (!isAuthenticated(Astro.cookies)) {
+  return Astro.redirect('/admin');
+}
+
+const id = parseInt(Astro.params.id || '0');
+if (isNaN(id)) return Astro.redirect('/admin/products');
+
+const pool = getPool();
+let error = '';
+
+if (Astro.request.method === 'POST') {
+  const data = await Astro.request.formData();
+  const action = data.get('_action')?.toString();
+
+  if (action === 'delete') {
+    await pool.query('DELETE FROM products WHERE id = $1', [id]);
+    return Astro.redirect('/admin/products?success=deleted');
+  }
+
+  const name        = data.get('name')?.toString().trim() || '';
+  const price       = parseFloat(data.get('price')?.toString() || '0');
+  const sale_price  = data.get('sale_price')?.toString().trim();
+  const description = data.get('description')?.toString().trim() || '';
+  const scents      = (data.get('scents')?.toString() || '').split(',').map(s => s.trim()).filter(Boolean);
+  const image       = data.get('image')?.toString().trim() || null;
+  const in_stock    = data.get('in_stock') === 'on';
+  const wax_color   = data.get('wax_color')?.toString().trim() || '';
+  const bg_glow     = data.get('bg_glow')?.toString().trim() || '';
+  const tag_color   = data.get('tag_color')?.toString().trim() || '';
+  const tag_bg      = data.get('tag_bg')?.toString().trim() || '';
+  const sort_order  = parseInt(data.get('sort_order')?.toString() || '0');
+
+  if (!name || isNaN(price)) {
+    error = 'Name and price are required.';
+  } else {
+    await pool.query(
+      `UPDATE products SET
+         name=$1, price=$2, sale_price=$3, description=$4, scents=$5, image=$6,
+         in_stock=$7, wax_color=$8, bg_glow=$9, tag_color=$10, tag_bg=$11,
+         sort_order=$12, updated_at=NOW()
+       WHERE id=$13`,
+      [name, price, sale_price ? parseFloat(sale_price) : null, description, scents, image,
+       in_stock, wax_color, bg_glow, tag_color, tag_bg, sort_order, id]
+    );
+    return Astro.redirect('/admin/products?success=saved');
+  }
+}
+
+const { rows } = await pool.query<Product>('SELECT * FROM products WHERE id = $1', [id]);
+const product = rows[0];
+if (!product) return Astro.redirect('/admin/products');
+---
+<AdminLayout title={`Edit: ${product.name}`}>
+  <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+    <a href="/admin/products" class="btn btn-secondary btn-sm">← Back</a>
+    <h1 style="margin:0;">Edit: {product.name}</h1>
+  </div>
+
+  {error && <div class="alert alert-error">{error}</div>}
+
+  <form method="POST">
+    <div class="card">
+      <h2>Basic Info</h2>
+      <div class="form-grid form-row">
+        <div>
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" value={product.name} required />
+        </div>
+        <div>
+          <label for="sort_order">Sort Order</label>
+          <input type="number" id="sort_order" name="sort_order" value={product.sort_order} />
+        </div>
+      </div>
+      <div class="form-row">
+        <label for="description">Description</label>
+        <textarea id="description" name="description">{product.description}</textarea>
+      </div>
+      <div class="form-row">
+        <label for="scents">Scents (comma-separated)</label>
+        <input type="text" id="scents" name="scents" value={product.scents.join(', ')} />
+      </div>
+      <div class="form-row">
+        <label for="image">Image URL / Path</label>
+        <input type="text" id="image" name="image" value={product.image || ''} />
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Pricing &amp; Stock</h2>
+      <div class="form-grid-3 form-row">
+        <div>
+          <label for="price">Price ($) *</label>
+          <input type="number" id="price" name="price" step="0.01" min="0" value={Number(product.price)} required />
+        </div>
+        <div>
+          <label for="sale_price">Sale Price ($)</label>
+          <input type="number" id="sale_price" name="sale_price" step="0.01" min="0"
+            value={product.sale_price !== null ? Number(product.sale_price) : ''}
+            placeholder="Leave blank if no sale" />
+        </div>
+        <div style="display:flex;align-items:flex-end;padding-bottom:0.1rem;">
+          <label style="display:flex;align-items:center;text-transform:none;letter-spacing:0;font-size:0.85rem;">
+            <input type="checkbox" name="in_stock" checked={product.in_stock || undefined} /> In Stock
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Card Appearance</h2>
+      <div class="form-grid form-row">
+        <div>
+          <label for="wax_color">Wax Gradient (Tailwind class)</label>
+          <input type="text" id="wax_color" name="wax_color" value={product.wax_color} />
+        </div>
+        <div>
+          <label for="bg_glow">Background Glow (CSS color)</label>
+          <input type="text" id="bg_glow" name="bg_glow" value={product.bg_glow} />
+        </div>
+      </div>
+      <div class="form-grid form-row">
+        <div>
+          <label for="tag_color">Tag Text Color (Tailwind class)</label>
+          <input type="text" id="tag_color" name="tag_color" value={product.tag_color} />
+        </div>
+        <div>
+          <label for="tag_bg">Tag Background (Tailwind class)</label>
+          <input type="text" id="tag_bg" name="tag_bg" value={product.tag_bg} />
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+      <button type="submit" name="_action" value="update" class="btn btn-primary">Save Changes</button>
+      <a href="/admin/products" class="btn btn-secondary">Cancel</a>
+      <div style="flex:1;"></div>
+      <button
+        type="submit"
+        name="_action"
+        value="delete"
+        class="btn btn-danger"
+        onclick="return confirm('Delete this product? This cannot be undone.')"
+      >Delete Product</button>
+    </div>
+  </form>
+</AdminLayout>

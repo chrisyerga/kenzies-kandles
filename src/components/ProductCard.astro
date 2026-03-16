@@ -2,6 +2,7 @@
 interface Props {
   name: string;
   price: number;
+  salePrice?: number;
   description: string;
   scents: string[];
   waxColor: string;
@@ -11,7 +12,7 @@ interface Props {
   image?: string;
   delay?: number;
 }
-const { name, price, description, scents, waxColor, bgGlow, tagColor, tagBg, image, delay = 0 } = Astro.props;
+const { name, price, salePrice, description, scents, waxColor, bgGlow, tagColor, tagBg, image, delay = 0 } = Astro.props;
 ---
 <div class="glass-card rounded-2xl overflow-hidden">
   <!-- Jar display area -->
@@ -24,7 +25,14 @@ const { name, price, description, scents, waxColor, bgGlow, tagColor, tagBg, ima
       class="absolute top-3 right-3 text-sm font-extrabold px-3 py-1 rounded-full"
       style={`background:rgba(0,0,0,0.35); backdrop-filter:blur(8px); border:1px solid rgba(196,181,253,0.25); color:#c4b5fd;`}
     >
-      ${price}
+      {salePrice !== undefined ? (
+        <>
+          <span style="text-decoration:line-through;opacity:0.5;margin-right:0.3rem;">${price}</span>
+          <span style="color:#6ee7b7;">${salePrice}</span>
+        </>
+      ) : (
+        <>${price}</>
+      )}
     </div>
 
     {image ? (

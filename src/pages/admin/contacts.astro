@@ -1,0 +1,90 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { isAuthenticated } from '../../lib/auth';
+import { getPool } from '../../lib/db';
+import type { Contact } from '../../lib/db';
+
+if (!isAuthenticated(Astro.cookies)) {
+  return Astro.redirect('/admin');
+}
+
+const pool = getPool();
+
+if (Astro.request.method === 'POST') {
+  const data = await Astro.request.formData();
+  const contactId = data.get('id')?.toString();
+  const action = data.get('_action')?.toString();
+
+  if (contactId && action === 'mark_read') {
+    await pool.query('UPDATE contacts SET read = true WHERE id = $1', [contactId]);
+  } else if (contactId && action === 'mark_unread') {
+    await pool.query('UPDATE contacts SET read = false WHERE id = $1', [contactId]);
+  } else if (contactId && action === 'delete') {
+    await pool.query('DELETE FROM contacts WHERE id = $1', [contactId]);
+  }
+
+  return Astro.redirect('/admin/contacts');
+}
+
+const { rows: contacts } = await pool.query<Contact>(
+  'SELECT * FROM contacts ORDER BY created_at DESC'
+);
+
+const unreadCount = contacts.filter(c => !c.read).length;
+---
+<AdminLayout title="Contacts">
+  <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+    <h1 style="margin:0;">Contact Messages</h1>
+    {unreadCount > 0 && (
+      <span class="badge badge-purple">{unreadCount} unread</span>
+    )}
+  </div>
+
+  {contacts.length === 0 && (
+    <div class="card" style="text-align:center;color:#4a3a6a;padding:3rem;">
+      No contact messages yet.
+    </div>
+  )}
+
+  {contacts.map(contact => (
+    <div class="card" style={`border-left:3px solid ${contact.read ? 'rgba(196,181,253,0.1)' : '#e879f9'};`}>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;">
+            {!contact.read && <span class="unread-dot"></span>}
+            <span style="font-weight:700;color:#fff;font-size:1rem;">{contact.name}</span>
+            <span style="color:#a78bca;font-size:0.85rem;">
+              &lt;<a href={`mailto:${contact.email}`}>{contact.email}</a>&gt;
+            </span>
+          </div>
+          <div style="font-size:0.75rem;color:#4a3a6a;margin-bottom:0.75rem;">
+            {new Date(contact.created_at).toLocaleString('en-US', {
+              month: 'short', day: 'numeric', year: 'numeric',
+              hour: 'numeric', minute: '2-digit',
+            })}
+          </div>
+          <p style="color:#c4b5fd;white-space:pre-wrap;line-height:1.6;font-size:0.9rem;">{contact.message}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0.5rem;flex-shrink:0;">
+          <form method="POST">
+            <input type="hidden" name="id" value={contact.id} />
+            <input type="hidden" name="_action" value={contact.read ? 'mark_unread' : 'mark_read'} />
+            <button type="submit" class="btn btn-secondary btn-sm" style="width:100%;">
+              {contact.read ? 'Mark Unread' : 'Mark Read'}
+            </button>
+          </form>
+          <form method="POST">
+            <input type="hidden" name="id" value={contact.id} />
+            <input type="hidden" name="_action" value="delete" />
+            <button
+              type="submit"
+              class="btn btn-danger btn-sm"
+              style="width:100%;"
+              onclick="return confirm('Delete this message?')"
+            >Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  ))}
+</AdminLayout>

@@ -1,0 +1,125 @@
+---
+import { isAuthenticated } from '../../lib/auth';
+
+if (isAuthenticated(Astro.cookies)) {
+  return Astro.redirect('/admin/products');
+}
+
+const error = Astro.url.searchParams.get('error');
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — Kenzie's Kandles</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0d0125;
+      color: #e2d9f3;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .box {
+      width: 100%;
+      max-width: 380px;
+      padding: 2.5rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(196,181,253,0.15);
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .brand-script {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2rem;
+      color: #e879f9;
+      display: block;
+    }
+    .brand-caps {
+      font-weight: 800;
+      font-size: 1.4rem;
+      letter-spacing: 0.2em;
+      color: #fff;
+      text-transform: uppercase;
+      display: block;
+      margin-top: -0.3rem;
+    }
+    .brand-sub {
+      font-size: 0.75rem;
+      color: #a78bca;
+      margin-top: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #a78bca;
+      margin-bottom: 0.4rem;
+    }
+    input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(196,181,253,0.2);
+      border-radius: 8px;
+      color: #e2d9f3;
+      padding: 0.65rem 0.85rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      margin-bottom: 1.25rem;
+    }
+    input:focus { border-color: rgba(196,181,253,0.5); }
+    button {
+      width: 100%;
+      background: #7c3aed;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.7rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button:hover { background: #6d28d9; }
+    .error {
+      background: rgba(239,68,68,0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239,68,68,0.25);
+      padding: 0.6rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="brand">
+      <span class="brand-script">Kenzie's</span>
+      <span class="brand-caps">Kandles</span>
+      <p class="brand-sub">Admin Panel</p>
+    </div>
+    {error && <div class="error">Incorrect password. Try again.</div>}
+    <form method="POST" action="/api/admin/login">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autofocus required />
+      <button type="submit">Sign In</button>
+    </form>
+  </div>
+</body>
+</html>

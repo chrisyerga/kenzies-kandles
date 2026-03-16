@@ -1,0 +1,71 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { isAuthenticated } from '../../lib/auth';
+import { getPool } from '../../lib/db';
+import type { Product } from '../../lib/db';
+
+if (!isAuthenticated(Astro.cookies)) {
+  return Astro.redirect('/admin');
+}
+
+const pool = getPool();
+const { rows: products } = await pool.query<Product>(
+  'SELECT * FROM products ORDER BY sort_order ASC, id ASC'
+);
+
+const success = Astro.url.searchParams.get('success');
+---
+<AdminLayout title="Products">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
+    <h1 style="margin:0;">Products</h1>
+    <a href="/admin/products/new" class="btn btn-primary">+ New Product</a>
+  </div>
+
+  {success === 'deleted' && <div class="alert alert-success">Product deleted.</div>}
+  {success === 'saved' && <div class="alert alert-success">Product saved.</div>}
+  {success === 'created' && <div class="alert alert-success">Product created.</div>}
+
+  <div class="card" style="padding:0;overflow:hidden;">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Sale Price</th>
+          <th>Status</th>
+          <th>Scents</th>
+          <th style="width:100px;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {products.map(p => (
+          <tr>
+            <td style="font-weight:600;color:#fff;">{p.name}</td>
+            <td>${Number(p.price).toFixed(2)}</td>
+            <td>
+              {p.sale_price
+                ? <span style="color:#6ee7b7;">${Number(p.sale_price).toFixed(2)}</span>
+                : <span style="color:#4a3a6a;">—</span>}
+            </td>
+            <td>
+              {p.in_stock
+                ? <span class="badge badge-green">In Stock</span>
+                : <span class="badge badge-red">Out of Stock</span>}
+            </td>
+            <td style="color:#a78bca;font-size:0.8rem;">{p.scents.join(', ')}</td>
+            <td>
+              <a href={`/admin/products/${p.id}`} class="btn btn-secondary btn-sm">Edit</a>
+            </td>
+          </tr>
+        ))}
+        {products.length === 0 && (
+          <tr>
+            <td colspan="6" style="text-align:center;color:#4a3a6a;padding:2rem;">
+              No products yet. <a href="/admin/products/new">Add one →</a>
+            </td>
+          </tr>
+        )}
+      </tbody>
+    </table>
+  </div>
+</AdminLayout>
