@@ -8,90 +8,86 @@
   <div class="max-w-2xl mx-auto px-6">
 
     <div class="text-center mb-12">
-      <p class="text-[0.7rem] font-extrabold tracking-[0.15em] uppercase mb-2" style="color:#c4b5fd;">✦ Say Hello ✦</p>
-      <span class="font-script block leading-none" style="font-size:2.8rem; color:#e879f9; text-shadow:0 0 20px rgba(232,121,249,0.4);">Get in</span>
-      <span class="font-black tracking-widest text-white block" style="font-size:2.8rem; margin-top:-0.4rem;">TOUCH</span>
-      <p class="text-white/40 mt-3">Custom orders and questions always welcome 💌</p>
+      <p class="text-[0.7rem] font-extrabold tracking-[0.15em] uppercase mb-4" style="color:#c4b5fd;">✦ Contact ✦</p>
+      <h2
+        class="font-black text-white leading-snug"
+        style="font-size:clamp(1.5rem, 4vw, 2rem); text-shadow:0 0 24px rgba(232,121,249,0.25);"
+      >
+        Sorry our wax runneth dry so we've turned off ordering. We hope to be back soon!
+      </h2>
     </div>
 
     <div
-      class="rounded-2xl p-8"
+      class="contact-closed relative rounded-2xl p-8 overflow-hidden"
       style="background:rgba(255,255,255,0.04); border:1px solid rgba(196,181,253,0.15); backdrop-filter:blur(10px);"
     >
-      <form id="contact-form" class="space-y-5">
-        <div class="grid grid-cols-2 gap-4">
+      <form id="contact-form" class="space-y-5 pointer-events-none select-none" aria-disabled="true">
+        <div class="grid grid-cols-2 gap-4 opacity-40">
           <div>
             <label class="block text-xs font-bold tracking-wide text-white/50 mb-2">Name</label>
-            <input class="form-input" type="text" name="name" placeholder="Your name" required />
+            <input class="form-input" type="text" name="name" placeholder="Your name" disabled tabindex="-1" />
           </div>
           <div>
             <label class="block text-xs font-bold tracking-wide text-white/50 mb-2">Email</label>
-            <input class="form-input" type="email" name="email" placeholder="you@email.com" required />
+            <input class="form-input" type="email" name="email" placeholder="you@email.com" disabled tabindex="-1" />
           </div>
         </div>
-        <div>
+        <div class="opacity-40">
           <label class="block text-xs font-bold tracking-wide text-white/50 mb-2">Message</label>
           <textarea
             class="form-input resize-none"
             name="message"
             rows="4"
             placeholder="Tell me what scents you're dreaming of..."
-            required
+            disabled
+            tabindex="-1"
           ></textarea>
         </div>
-        <div id="contact-status" class="hidden rounded-xl px-4 py-3 text-sm font-semibold text-center"></div>
         <button
-          type="submit"
-          id="contact-submit"
-          class="glow-btn w-full text-white font-bold py-4 rounded-full text-base"
+          type="button"
+          disabled
+          tabindex="-1"
+          class="glow-btn w-full text-white font-bold py-4 rounded-full text-base opacity-40 cursor-not-allowed"
         >
           Send Message 💜
         </button>
       </form>
+
+      <div class="contact-x-overlay" aria-hidden="true">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="contact-x-svg">
+          <line x1="8" y1="8" x2="92" y2="92" />
+          <line x1="92" y1="8" x2="8" y2="92" />
+        </svg>
+      </div>
     </div>
 
   </div>
 </section>
 
-<script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
-  const status = document.getElementById('contact-status') as HTMLDivElement;
-  const submit = document.getElementById('contact-submit') as HTMLButtonElement;
+<style>
+  .contact-closed {
+    min-height: 18rem;
+  }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    submit.disabled = true;
-    submit.textContent = 'Sending…';
-    status.className = 'hidden rounded-xl px-4 py-3 text-sm font-semibold text-center';
+  .contact-x-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
 
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: (form.elements.namedItem('name') as HTMLInputElement).value,
-          email: (form.elements.namedItem('email') as HTMLInputElement).value,
-          message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
-        }),
-      });
+  .contact-x-svg {
+    width: 85%;
+    height: 85%;
+    overflow: visible;
+  }
 
-      if (res.ok) {
-        status.textContent = '✓ Message sent! I\'ll get back to you soon 💜';
-        status.className = 'rounded-xl px-4 py-3 text-sm font-semibold text-center';
-        status.style.cssText = 'background:rgba(110,231,183,0.1);color:#6ee7b7;border:1px solid rgba(110,231,183,0.2);';
-        form.reset();
-        submit.textContent = 'Send Message 💜';
-        submit.disabled = false;
-      } else {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.error || 'Something went wrong.');
-      }
-    } catch (err: any) {
-      status.textContent = `✗ ${err.message || 'Failed to send. Please try again.'}`;
-      status.className = 'rounded-xl px-4 py-3 text-sm font-semibold text-center';
-      status.style.cssText = 'background:rgba(239,68,68,0.1);color:#fca5a5;border:1px solid rgba(239,68,68,0.2);';
-      submit.textContent = 'Send Message 💜';
-      submit.disabled = false;
-    }
-  });
-</script>
+  .contact-x-svg line {
+    stroke: rgba(239, 68, 68, 0.75);
+    stroke-width: 3.5;
+    stroke-linecap: round;
+    filter: drop-shadow(0 0 12px rgba(239, 68, 68, 0.45));
+  }
+</style>
