@@ -40,9 +40,11 @@ if (Astro.request.method === 'POST') {
 }
 ---
 <AdminLayout title="New Product">
-  <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
-    <a href="/admin/products" class="btn btn-secondary btn-sm">← Back</a>
-    <h1 style="margin:0;">New Product</h1>
+  <div class="page-header">
+    <div class="page-header-left">
+      <a href="/admin/products" class="btn btn-secondary btn-sm">← Back</a>
+      <h1>New Product</h1>
+    </div>
   </div>
 
   {error && <div class="alert alert-error">{error}</div>}
@@ -50,44 +52,47 @@ if (Astro.request.method === 'POST') {
   <form method="POST">
     <div class="card">
       <h2>Basic Info</h2>
-      <div class="form-grid form-row">
-        <div>
+      <div class="form-grid">
+        <div class="form-field">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required />
         </div>
-        <div>
+        <div class="form-field">
           <label for="sort_order">Sort Order</label>
           <input type="number" id="sort_order" name="sort_order" value="0" />
         </div>
       </div>
-      <div class="form-row">
+      <div class="form-field">
         <label for="description">Description</label>
         <textarea id="description" name="description"></textarea>
       </div>
-      <div class="form-row">
-        <label for="scents">Scents (comma-separated)</label>
-        <input type="text" id="scents" name="scents" placeholder="e.g. Lavender, Vanilla" />
-      </div>
-      <div class="form-row">
-        <label for="image">Image URL / Path</label>
-        <input type="text" id="image" name="image" placeholder="/images/my-candle.jpg" />
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="scents">Scents (comma-separated)</label>
+          <input type="text" id="scents" name="scents" placeholder="e.g. Lavender, Vanilla" />
+        </div>
+        <div class="form-field">
+          <label for="image">Image URL / Path</label>
+          <input type="text" id="image" name="image" placeholder="/images/my-candle.jpg" />
+        </div>
       </div>
     </div>
 
     <div class="card">
       <h2>Pricing &amp; Stock</h2>
-      <div class="form-grid-3 form-row">
-        <div>
+      <div class="form-grid-3">
+        <div class="form-field">
           <label for="price">Price ($) *</label>
           <input type="number" id="price" name="price" step="0.01" min="0" required />
         </div>
-        <div>
+        <div class="form-field">
           <label for="sale_price">Sale Price ($)</label>
           <input type="number" id="sale_price" name="sale_price" step="0.01" min="0" placeholder="Leave blank if no sale" />
         </div>
-        <div style="display:flex;align-items:flex-end;padding-bottom:0.1rem;">
-          <label style="display:flex;align-items:center;text-transform:none;letter-spacing:0;font-size:0.85rem;">
-            <input type="checkbox" name="in_stock" checked /> In Stock
+        <div class="form-field">
+          <label class="checkbox-label" for="in_stock">
+            <input type="checkbox" id="in_stock" name="in_stock" checked />
+            In Stock
           </label>
         </div>
       </div>
@@ -95,32 +100,32 @@ if (Astro.request.method === 'POST') {
 
     <div class="card">
       <h2>Card Appearance</h2>
-      <p style="font-size:0.8rem;color:#a78bca;margin-bottom:1rem;">
+      <p class="card-note">
         These control the visual styling on the product card. Copy values from an existing product to match, or leave blank.
       </p>
-      <div class="form-grid form-row">
-        <div>
+      <div class="form-grid">
+        <div class="form-field">
           <label for="wax_color">Wax Gradient (Tailwind class)</label>
           <input type="text" id="wax_color" name="wax_color" placeholder="from-purple-200 via-purple-400 to-pink-300" />
         </div>
-        <div>
+        <div class="form-field">
           <label for="bg_glow">Background Glow (CSS color)</label>
           <input type="text" id="bg_glow" name="bg_glow" placeholder="rgba(232,121,249,0.25)" />
         </div>
       </div>
-      <div class="form-grid form-row">
-        <div>
+      <div class="form-grid">
+        <div class="form-field">
           <label for="tag_color">Tag Text Color (Tailwind class)</label>
           <input type="text" id="tag_color" name="tag_color" placeholder="text-brand-lavender" />
         </div>
-        <div>
+        <div class="form-field">
           <label for="tag_bg">Tag Background (Tailwind class)</label>
           <input type="text" id="tag_bg" name="tag_bg" placeholder="bg-violet-950/50 border-violet-400/30" />
         </div>
       </div>
     </div>
 
-    <div style="display:flex;gap:0.75rem;">
+    <div class="form-actions">
       <button type="submit" class="btn btn-primary">Create Product</button>
       <a href="/admin/products" class="btn btn-secondary">Cancel</a>
     </div>

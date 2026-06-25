@@ -16,8 +16,8 @@ const { rows: products } = await pool.query<Product>(
 const success = Astro.url.searchParams.get('success');
 ---
 <AdminLayout title="Products">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;">
-    <h1 style="margin:0;">Products</h1>
+  <div class="page-header">
+    <h1>Products</h1>
     <a href="/admin/products/new" class="btn btn-primary">+ New Product</a>
   </div>
 
@@ -25,47 +25,75 @@ const success = Astro.url.searchParams.get('success');
   {success === 'saved' && <div class="alert alert-success">Product saved.</div>}
   {success === 'created' && <div class="alert alert-success">Product created.</div>}
 
-  <div class="card" style="padding:0;overflow:hidden;">
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Sale Price</th>
-          <th>Status</th>
-          <th>Scents</th>
-          <th style="width:100px;"></th>
-        </tr>
-      </thead>
-      <tbody>
-        {products.map(p => (
+  <div class="card" style="padding:0;">
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
           <tr>
-            <td style="font-weight:600;color:#fff;">{p.name}</td>
-            <td>${Number(p.price).toFixed(2)}</td>
-            <td>
-              {p.sale_price
-                ? <span style="color:#6ee7b7;">${Number(p.sale_price).toFixed(2)}</span>
-                : <span style="color:#4a3a6a;">—</span>}
-            </td>
-            <td>
-              {p.in_stock
-                ? <span class="badge badge-green">In Stock</span>
-                : <span class="badge badge-red">Out of Stock</span>}
-            </td>
-            <td style="color:#a78bca;font-size:0.8rem;">{p.scents.join(', ')}</td>
-            <td>
-              <a href={`/admin/products/${p.id}`} class="btn btn-secondary btn-sm">Edit</a>
-            </td>
+            <th class="col-num">#</th>
+            <th class="col-product">Product</th>
+            <th>Price</th>
+            <th class="col-sale">Sale</th>
+            <th>Status</th>
+            <th class="col-scents">Scents</th>
+            <th></th>
           </tr>
-        ))}
-        {products.length === 0 && (
-          <tr>
-            <td colspan="6" style="text-align:center;color:#4a3a6a;padding:2rem;">
-              No products yet. <a href="/admin/products/new">Add one →</a>
-            </td>
-          </tr>
-        )}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {products.map(p => (
+            <tr>
+              <td class="col-num">{p.sort_order}</td>
+              <td class="col-product">
+                <div class="product-cell">
+                  {p.image ? (
+                    <img class="product-thumb" src={p.image} alt={p.name} />
+                  ) : (
+                    <div class="product-thumb product-thumb-empty">🕯</div>
+                  )}
+                  <div>
+                    <span class="product-name">{p.name}</span>
+                    {p.description && (
+                      <span class="product-desc">{p.description}</span>
+                    )}
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="price">${Number(p.price).toFixed(2)}</span>
+              </td>
+              <td class="col-sale">
+                {p.sale_price ? (
+                  <span class="price-sale">${Number(p.sale_price).toFixed(2)}</span>
+                ) : (
+                  <span class="price-muted">—</span>
+                )}
+              </td>
+              <td>
+                {p.in_stock ? (
+                  <span class="badge badge-green">In Stock</span>
+                ) : (
+                  <span class="badge badge-red">Out of Stock</span>
+                )}
+              </td>
+              <td class="col-scents">
+                <span class="scents-list" title={p.scents.join(', ')}>
+                  {p.scents.join(', ') || '—'}
+                </span>
+              </td>
+              <td>
+                <a href={`/admin/products/${p.id}`} class="btn btn-secondary btn-sm">Edit</a>
+              </td>
+            </tr>
+          ))}
+          {products.length === 0 && (
+            <tr>
+              <td colspan="7" class="table-empty">
+                No products yet. <a href="/admin/products/new">Add one →</a>
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
   </div>
 </AdminLayout>

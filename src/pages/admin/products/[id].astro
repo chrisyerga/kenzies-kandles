@@ -57,9 +57,11 @@ const product = rows[0];
 if (!product) return Astro.redirect('/admin/products');
 ---
 <AdminLayout title={`Edit: ${product.name}`}>
-  <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
-    <a href="/admin/products" class="btn btn-secondary btn-sm">← Back</a>
-    <h1 style="margin:0;">Edit: {product.name}</h1>
+  <div class="page-header">
+    <div class="page-header-left">
+      <a href="/admin/products" class="btn btn-secondary btn-sm">← Back</a>
+      <h1>Edit: {product.name}</h1>
+    </div>
   </div>
 
   {error && <div class="alert alert-error">{error}</div>}
@@ -67,46 +69,61 @@ if (!product) return Astro.redirect('/admin/products');
   <form method="POST">
     <div class="card">
       <h2>Basic Info</h2>
-      <div class="form-grid form-row">
-        <div>
+      <div class="form-grid">
+        <div class="form-field">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" value={product.name} required />
         </div>
-        <div>
+        <div class="form-field">
           <label for="sort_order">Sort Order</label>
           <input type="number" id="sort_order" name="sort_order" value={product.sort_order} />
         </div>
       </div>
-      <div class="form-row">
+      <div class="form-field">
         <label for="description">Description</label>
         <textarea id="description" name="description">{product.description}</textarea>
       </div>
-      <div class="form-row">
-        <label for="scents">Scents (comma-separated)</label>
-        <input type="text" id="scents" name="scents" value={product.scents.join(', ')} />
-      </div>
-      <div class="form-row">
-        <label for="image">Image URL / Path</label>
-        <input type="text" id="image" name="image" value={product.image || ''} />
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="scents">Scents (comma-separated)</label>
+          <input type="text" id="scents" name="scents" value={product.scents.join(', ')} />
+        </div>
+        <div class="form-field">
+          <label for="image">Image URL / Path</label>
+          <input type="text" id="image" name="image" value={product.image || ''} />
+          {product.image && (
+            <div class="image-preview">
+              <img src={product.image} alt={product.name} />
+              <span>Current image preview</span>
+            </div>
+          )}
+        </div>
       </div>
     </div>
 
     <div class="card">
       <h2>Pricing &amp; Stock</h2>
-      <div class="form-grid-3 form-row">
-        <div>
+      <div class="form-grid-3">
+        <div class="form-field">
           <label for="price">Price ($) *</label>
           <input type="number" id="price" name="price" step="0.01" min="0" value={Number(product.price)} required />
         </div>
-        <div>
+        <div class="form-field">
           <label for="sale_price">Sale Price ($)</label>
-          <input type="number" id="sale_price" name="sale_price" step="0.01" min="0"
+          <input
+            type="number"
+            id="sale_price"
+            name="sale_price"
+            step="0.01"
+            min="0"
             value={product.sale_price !== null ? Number(product.sale_price) : ''}
-            placeholder="Leave blank if no sale" />
+            placeholder="Leave blank if no sale"
+          />
         </div>
-        <div style="display:flex;align-items:flex-end;padding-bottom:0.1rem;">
-          <label style="display:flex;align-items:center;text-transform:none;letter-spacing:0;font-size:0.85rem;">
-            <input type="checkbox" name="in_stock" checked={product.in_stock || undefined} /> In Stock
+        <div class="form-field">
+          <label class="checkbox-label" for="in_stock">
+            <input type="checkbox" id="in_stock" name="in_stock" checked={product.in_stock || undefined} />
+            In Stock
           </label>
         </div>
       </div>
@@ -114,32 +131,35 @@ if (!product) return Astro.redirect('/admin/products');
 
     <div class="card">
       <h2>Card Appearance</h2>
-      <div class="form-grid form-row">
-        <div>
+      <p class="card-note">
+        Controls the visual styling on the storefront product card. Copy values from an existing product to match.
+      </p>
+      <div class="form-grid">
+        <div class="form-field">
           <label for="wax_color">Wax Gradient (Tailwind class)</label>
           <input type="text" id="wax_color" name="wax_color" value={product.wax_color} />
         </div>
-        <div>
+        <div class="form-field">
           <label for="bg_glow">Background Glow (CSS color)</label>
           <input type="text" id="bg_glow" name="bg_glow" value={product.bg_glow} />
         </div>
       </div>
-      <div class="form-grid form-row">
-        <div>
+      <div class="form-grid">
+        <div class="form-field">
           <label for="tag_color">Tag Text Color (Tailwind class)</label>
           <input type="text" id="tag_color" name="tag_color" value={product.tag_color} />
         </div>
-        <div>
+        <div class="form-field">
           <label for="tag_bg">Tag Background (Tailwind class)</label>
           <input type="text" id="tag_bg" name="tag_bg" value={product.tag_bg} />
         </div>
       </div>
     </div>
 
-    <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+    <div class="form-actions">
       <button type="submit" name="_action" value="update" class="btn btn-primary">Save Changes</button>
       <a href="/admin/products" class="btn btn-secondary">Cancel</a>
-      <div style="flex:1;"></div>
+      <div class="form-actions-spacer"></div>
       <button
         type="submit"
         name="_action"
