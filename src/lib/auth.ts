@@ -4,7 +4,7 @@ export const COOKIE_NAME = 'kk_admin';
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
 function sessionToken(): string {
-  const password = import.meta.env.ADMIN_PASSWORD || 'changeme';
+  const password = process.env.ADMIN_PASSWORD || 'changeme';
   return createHmac('sha256', password).update('kenzies-kandles-v1').digest('hex');
 }
 

@@ -4,7 +4,7 @@ import { setSessionCookie } from '../../../lib/auth';
 export const POST: APIRoute = async ({ request, cookies }) => {
   const data = await request.formData();
   const password = data.get('password')?.toString() || '';
-  const adminPassword = import.meta.env.ADMIN_PASSWORD || 'changeme';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'changeme';
 
   if (password !== adminPassword) {
     return new Response(null, {

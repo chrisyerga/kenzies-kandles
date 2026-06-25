@@ -2,12 +2,12 @@ import nodemailer from 'nodemailer';
 
 function createTransport() {
   return nodemailer.createTransport({
-    host: import.meta.env.SMTP_HOST || 'smtp.example.com',
-    port: parseInt(import.meta.env.SMTP_PORT || '587'),
+    host: process.env.SMTP_HOST || 'smtp.example.com',
+    port: parseInt(process.env.SMTP_PORT || '587'),
     secure: false,
     auth: {
-      user: import.meta.env.SMTP_USER || '',
-      pass: import.meta.env.SMTP_PASS || '',
+      user: process.env.SMTP_USER || '',
+      pass: process.env.SMTP_PASS || '',
     },
   });
 }
@@ -17,8 +17,8 @@ export async function sendContactNotification(data: {
   email: string;
   message: string;
 }): Promise<void> {
-  const to = import.meta.env.CONTACT_EMAIL || 'kenzie@example.com';
-  const from = import.meta.env.SMTP_USER || 'noreply@example.com';
+  const to = process.env.CONTACT_EMAIL || 'kenzie@example.com';
+  const from = process.env.SMTP_USER || 'noreply@example.com';
 
   await createTransport().sendMail({
     from: `"Kenzie's Kandles" <${from}>`,

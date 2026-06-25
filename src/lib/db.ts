@@ -8,12 +8,13 @@ let _pool: Pool | null = null;
 
 export function getPool(): Pool {
   if (!_pool) {
-    _pool = new Pool({ connectionString: import.meta.env.DATABASE_URL });
+    const connectionString = process.env.DATABASE_URL;
+    if (!connectionString) {
+      throw new Error('DATABASE_URL environment variable is not set.');
+    }
+    _pool = new Pool({ connectionString });
   }
 
-  console.log('Database connected');
-  console.log(import.meta.env.DATABASE_URL);
-  console.log(_pool);
   return _pool;
 }
 
